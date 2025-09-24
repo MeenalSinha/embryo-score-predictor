@@ -1178,11 +1178,14 @@ elif page == "Image Prediction":
                         {'range': [4, 7], 'color': "#ffffcc"},
                         {'range': [7, 10], 'color': "#ccffcc"}
                     ],
+                    text-align: center;
                     'threshold': {
                         'line': {'color': "red", 'width': 4},
                         'thickness': 0.75,
                         'value': threshold * 10
                     }
+                    text-align: center;
+                    text-align: center;
                 }
             ))
             
@@ -1262,6 +1265,7 @@ elif page == "Image Prediction":
             st.markdown("""
             <div style="margin: 3rem 0 1rem 0;">
                 <h2 style="color: #1e293b; font-weight: 600; display: flex; align-items: center; gap: 0.5rem;">
+                    text-align: center;
                     📊 Results Summary
                 </h2>
             </div>
