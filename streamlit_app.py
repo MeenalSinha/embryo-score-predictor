@@ -12,6 +12,12 @@ import os
 from PIL import Image
 import io
 import base64
+from reportlab.lib.pagesizes import letter, A4
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle, Image as RLImage
+from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+from reportlab.lib.units import inch
+from reportlab.lib import colors
+from datetime import datetime
 
 # Page configuration
 st.set_page_config(
@@ -304,6 +310,194 @@ def apply_heatmap_overlay(img_array, heatmap, alpha=0.4):
         st.error(f"Error applying heatmap overlay: {str(e)}")
         return img_array
 
+def generate_pdf_report(results_df, uploaded_files):
+    """Generate a comprehensive PDF report of embryo analysis results"""
+    buffer = io.BytesIO()
+    
+    # Create PDF document
+    doc = SimpleDocTemplate(buffer, pagesize=A4, rightMargin=72, leftMargin=72,
+                           topMargin=72, bottomMargin=18)
+    
+    # Container for the 'Flowable' objects
+    elements = []
+    
+    # Define styles
+    styles = getSampleStyleSheet()
+    title_style = ParagraphStyle(
+        'CustomTitle',
+        parent=styles['Heading1'],
+        fontSize=24,
+        spaceAfter=30,
+        alignment=1,  # Center alignment
+        textColor=colors.HexColor('#1f77b4')
+    )
+    
+    heading_style = ParagraphStyle(
+        'CustomHeading',
+        parent=styles['Heading2'],
+        fontSize=16,
+        spaceAfter=12,
+        textColor=colors.HexColor('#2c3e50')
+    )
+    
+    # Title
+    title = Paragraph("🧬 IVF Embryo Quality Assessment Report", title_style)
+    elements.append(title)
+    elements.append(Spacer(1, 20))
+    
+    # Report metadata
+    report_info = [
+        ["Report Generated:", datetime.now().strftime("%Y-%m-%d %H:%M:%S")],
+        ["Number of Embryos:", str(len(results_df))],
+        ["Analysis Method:", "AI-Powered Image Analysis + Morphological Scoring"],
+        ["Report Type:", "Comprehensive Quality Assessment"]
+    ]
+    
+    info_table = Table(report_info, colWidths=[2*inch, 3*inch])
+    info_table.setStyle(TableStyle([
+        ('BACKGROUND', (0, 0), (0, -1), colors.HexColor('#f8f9fa')),
+        ('TEXTCOLOR', (0, 0), (-1, -1), colors.black),
+        ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
+        ('FONTNAME', (0, 0), (0, -1), 'Helvetica-Bold'),
+        ('FONTNAME', (1, 0), (1, -1), 'Helvetica'),
+        ('FONTSIZE', (0, 0), (-1, -1), 10),
+        ('GRID', (0, 0), (-1, -1), 1, colors.HexColor('#dee2e6')),
+        ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
+    ]))
+    
+    elements.append(info_table)
+    elements.append(Spacer(1, 30))
+    
+    # Executive Summary
+    summary_title = Paragraph("📊 Executive Summary", heading_style)
+    elements.append(summary_title)
+    
+    # Calculate summary statistics
+    avg_score = results_df['Image Score'].mean()
+    avg_confidence = results_df['Confidence'].mean()
+    high_quality = len(results_df[results_df['Image Score'] >= 7])
+    medium_quality = len(results_df[(results_df['Image Score'] >= 5) & (results_df['Image Score'] < 7)])
+    low_quality = len(results_df[results_df['Image Score'] < 5])
+    
+    summary_text = f"""
+    <b>Overall Assessment:</b><br/>
+    • Average Image Quality Score: {avg_score:.2f}/10<br/>
+    • Average Confidence Level: {avg_confidence:.1%}<br/>
+    • High Quality Embryos (≥7.0): {high_quality}<br/>
+    • Medium Quality Embryos (5.0-6.9): {medium_quality}<br/>
+    • Low Quality Embryos (<5.0): {low_quality}<br/><br/>
+    
+    <b>Recommendation:</b><br/>
+    {'Excellent cohort with multiple high-quality embryos suitable for transfer.' if avg_score >= 7 else
+     'Good cohort with viable embryos. Consider individual embryo characteristics for transfer selection.' if avg_score >= 5 else
+     'Mixed quality cohort. Detailed morphological assessment recommended for transfer decisions.'}
+    """
+    
+    summary_para = Paragraph(summary_text, styles['Normal'])
+    elements.append(summary_para)
+    elements.append(Spacer(1, 20))
+    
+    # Detailed Results Table
+    results_title = Paragraph("🔬 Detailed Analysis Results", heading_style)
+    elements.append(results_title)
+    
+    # Prepare table data
+    table_data = [['Embryo ID', 'Image Score', 'Confidence', 'Expansion', 'ICM', 'TE', 'Combined Score', 'Quality Grade']]
+    
+    for _, row in results_df.iterrows():
+        quality_grade = ('Excellent' if row['Image Score'] >= 8 else
+                        'Good' if row['Image Score'] >= 6 else
+                        'Fair' if row['Image Score'] >= 4 else 'Poor')
+        
+        table_data.append([
+            row['Embryo'],
+            f"{row['Image Score']:.2f}",
+            f"{row['Confidence']:.1%}",
+            str(row['Expansion']),
+            row['ICM'],
+            row['TE'],
+            f"{row['Combined Score']:.2f}",
+            quality_grade
+        ])
+    
+    # Create results table
+    results_table = Table(table_data, colWidths=[1*inch, 0.8*inch, 0.8*inch, 0.7*inch, 0.5*inch, 0.5*inch, 0.9*inch, 0.8*inch])
+    results_table.setStyle(TableStyle([
+        # Header row styling
+        ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor('#1f77b4')),
+        ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+        ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+        ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+        ('FONTSIZE', (0, 0), (-1, 0), 9),
+        
+        # Data rows styling
+        ('FONTNAME', (0, 1), (-1, -1), 'Helvetica'),
+        ('FONTSIZE', (0, 1), (-1, -1), 8),
+        ('GRID', (0, 0), (-1, -1), 1, colors.HexColor('#dee2e6')),
+        ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
+        
+        # Alternating row colors
+        ('ROWBACKGROUNDS', (0, 1), (-1, -1), [colors.white, colors.HexColor('#f8f9fa')]),
+    ]))
+    
+    elements.append(results_table)
+    elements.append(Spacer(1, 30))
+    
+    # Quality Interpretation Guide
+    guide_title = Paragraph("📋 Quality Score Interpretation", heading_style)
+    elements.append(guide_title)
+    
+    interpretation_data = [
+        ['Score Range', 'Quality Grade', 'Clinical Interpretation', 'Recommendation'],
+        ['8.0 - 10.0', 'Excellent', 'High implantation potential', 'Priority for transfer'],
+        ['6.0 - 7.9', 'Good', 'Good developmental potential', 'Suitable for transfer'],
+        ['4.0 - 5.9', 'Fair', 'Moderate potential', 'Consider individual factors'],
+        ['0.0 - 3.9', 'Poor', 'Limited potential', 'Additional assessment needed']
+    ]
+    
+    interpretation_table = Table(interpretation_data, colWidths=[1.2*inch, 1*inch, 2*inch, 1.8*inch])
+    interpretation_table.setStyle(TableStyle([
+        ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor('#28a745')),
+        ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+        ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+        ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+        ('FONTSIZE', (0, 0), (-1, 0), 9),
+        ('FONTNAME', (0, 1), (-1, -1), 'Helvetica'),
+        ('FONTSIZE', (0, 1), (-1, -1), 8),
+        ('GRID', (0, 0), (-1, -1), 1, colors.HexColor('#dee2e6')),
+        ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
+        ('ROWBACKGROUNDS', (0, 1), (-1, -1), [colors.white, colors.HexColor('#f0f9ff')]),
+    ]))
+    
+    elements.append(interpretation_table)
+    elements.append(Spacer(1, 30))
+    
+    # Medical Disclaimer
+    disclaimer_title = Paragraph("⚠️ Medical Disclaimer", heading_style)
+    elements.append(disclaimer_title)
+    
+    disclaimer_text = """
+    <b>Important Notice:</b><br/><br/>
+    This report is generated by an AI-powered analysis system for educational and research purposes only. 
+    The results should not replace professional medical judgment or clinical decision-making. 
+    All treatment decisions should be made in consultation with qualified fertility specialists who can 
+    consider the complete clinical context, patient history, and additional diagnostic information.<br/><br/>
+    
+    <b>Limitations:</b><br/>
+    • AI analysis is based on image quality metrics and morphological parameters<br/>
+    • Results may vary based on image quality and capture conditions<br/>
+    • Clinical outcomes depend on multiple factors not captured in this analysis<br/>
+    • This tool should be used as a supplementary assessment method only
+    """
+    
+    disclaimer_para = Paragraph(disclaimer_text, styles['Normal'])
+    elements.append(disclaimer_para)
+    
+    # Build PDF
+    doc.build(elements)
+    buffer.seek(0)
+    return buffer
+
 # Sidebar for navigation
 st.sidebar.title("Navigation")
 page = st.sidebar.selectbox("Choose a prediction method", [
@@ -502,9 +696,26 @@ elif page == "Image Prediction":
             results_df = pd.DataFrame(results)
             st.dataframe(results_df, use_container_width=True)
 
-            # Export CSV
-            csv = results_df.to_csv(index=False).encode("utf-8")
-            st.download_button("⬇️ Download Results (CSV)", csv, "embryo_results.csv", "text/csv")
+            # Export options
+            col1, col2 = st.columns(2)
+            
+            with col1:
+                # Export CSV
+                csv = results_df.to_csv(index=False).encode("utf-8")
+                st.download_button("⬇️ Download Results (CSV)", csv, "embryo_results.csv", "text/csv")
+            
+            with col2:
+                # Export PDF
+                try:
+                    pdf_buffer = generate_pdf_report(results_df, uploaded_files)
+                    st.download_button(
+                        "📄 Download Report (PDF)", 
+                        pdf_buffer.getvalue(), 
+                        "embryo_analysis_report.pdf", 
+                        "application/pdf"
+                    )
+                except Exception as e:
+                    st.error(f"Error generating PDF: {str(e)}")
     else:
         st.markdown('<div class="info-box">', unsafe_allow_html=True)
         st.markdown("""
