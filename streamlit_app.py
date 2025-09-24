@@ -953,7 +953,7 @@ elif page == "Image Prediction":
     
     # Sidebar information
     with st.sidebar:
-        st.header("How to Use")
+        st.header("📋 How to Use")
         st.markdown("""
         1. **Upload Images**: Select embryo images (Day 3-5)
         2. **Image Analysis**: Get quality predictions
@@ -961,7 +961,7 @@ elif page == "Image Prediction":
         4. **View Results**: See comprehensive assessment results
         """)
         
-        st.header("Note")
+        st.header("⚠️ Note")
         st.info("""
         This is a simplified version for demonstration. 
         The full version with deep learning models 
@@ -1084,7 +1084,7 @@ elif page == "Image Prediction":
             with col1:
                 # Export CSV
                 csv = results_df.to_csv(index=False).encode("utf-8")
-                st.download_button("Download Results (CSV)", csv, "embryo_results.csv", "text/csv", 
+                st.download_button("📊 Download Results (CSV)", csv, "embryo_results.csv", "text/csv", 
                                  help="Download detailed results in CSV format")
             
             with col2:
@@ -1092,7 +1092,7 @@ elif page == "Image Prediction":
                 try:
                     pdf_buffer = generate_pdf_report(results_df, uploaded_files)
                     st.download_button(
-                        "Download Report (PDF)", 
+                        "📄 Download Report (PDF)", 
                         pdf_buffer.getvalue(), 
                         "embryo_analysis_report.pdf", 
                         "application/pdf",
@@ -1103,20 +1103,20 @@ elif page == "Image Prediction":
     else:
         st.markdown('<div class="info-box">', unsafe_allow_html=True)
         st.markdown("""
-        ### Get Started with Image Analysis
+        ### 🚀 Get Started with Image Analysis
         
-        1. **Upload Images**: Select embryo images using the uploader below
+        1. **📤 Upload Images**: Select embryo images using the uploader below
         2. **Set Threshold**: Adjust the quality threshold above
         3. **AI Analysis**: Get automated quality predictions
         4. **Morphological Scoring**: Input expansion, ICM, and TE grades
         5. **Export Results**: Download CSV or PDF reports
         
-        ### Features
+        ### ✨ Features
         - **Grad-CAM Visualization**: See what the AI focuses on
         - **Combined Scoring**: AI + morphological assessment
         - **Professional Reports**: Comprehensive PDF documentation
         
-        ### Note
+        ### ⚠️ Note
         This is a demonstration version with simplified image analysis. 
         Production deployment would require deep learning models and GPU resources.
         """)
@@ -1209,7 +1209,7 @@ elif page == "Data Analysis":
         ''', unsafe_allow_html=True)
         st.markdown(f'''
         <div class="metric-card">
-            <h3>Low Quality (<5)</h3>
+            <h3>🔴 Low Quality (<5)</h3>
             <h2>{len(df[df['quality_score'] < 5])}</h2>
         </div>
         ''', unsafe_allow_html=True)
