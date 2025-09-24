@@ -327,27 +327,55 @@ elif page == "Image Prediction":
             st.subheader(f"Embryo {idx+1}")
             
             # Analyze image
-            img, score, confidence = analyze_image_simple(uploaded_file)
+            img, img_array, score, confidence, heatmap = analyze_image_with_gradcam(uploaded_file)
             
             if img is None:
                 st.error(f"Failed to process image {idx+1}")
                 continue
 
-            # Display image
+            # Create overlay if heatmap is available
+            overlay_img = img_array
+            if heatmap is not None:
+                overlay_img = apply_heatmap_overlay(img_array, heatmap)
+
+            # Display images side by side
             col1, col2 = st.columns(2)
             
             with col1:
+                st.markdown("<div style='text-align:center;'>", unsafe_allow_html=True)
                 st.image(img, caption="Original Image", width=350)
+                st.markdown("</div>", unsafe_allow_html=True)
             
             with col2:
-                st.markdown(f'''
-                <div class="image-prediction-box">
-                    <h3>Analysis Results</h3>
-                    <p><strong>Quality Score:</strong> {score:.2f}/10</p>
-                    <p><strong>Confidence:</strong> {confidence:.2%}</p>
-                    <p><strong>Classification:</strong> {'High Quality' if score >= 7 else 'Medium Quality' if score >= 5 else 'Low Quality'}</p>
+                st.markdown("<div style='text-align:center;'>", unsafe_allow_html=True)
+                if heatmap is not None:
+                    st.image(overlay_img, caption="Grad-CAM Heatmap", width=350)
+                else:
+                    st.image(img, caption="Original (Heatmap unavailable)", width=350)
+                st.markdown("</div>", unsafe_allow_html=True)
+
+            # Display prediction result
+            st.markdown(f'''
+            <div class="image-prediction-box">
+                <h3>AI Analysis Results</h3>
+                <p><strong>Quality Score:</strong> {score:.2f}/10</p>
+                <p><strong>Confidence:</strong> {confidence:.2%}</p>
+                <p><strong>Classification:</strong> {'🟢 High Quality' if score >= 7 else '🟡 Medium Quality' if score >= 5 else '🔴 Low Quality'}</p>
+                <p><strong>Grad-CAM:</strong> {'✅ Generated' if heatmap is not None else '❌ Unavailable'}</p>
+            </div>
+            ''', unsafe_allow_html=True)
+
+            # Add explanation for Grad-CAM
+            if heatmap is not None:
+                st.markdown("""
+                <div style="background: #f0f9ff; padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+                    <p style="margin: 0; font-size: 0.9rem; color: #1e40af;">
+                        <strong>🔍 Grad-CAM Explanation:</strong> The heatmap shows regions the AI model focuses on when making predictions. 
+                        Red/yellow areas indicate high attention, while blue areas show low attention. This helps understand what features 
+                        the model considers important for quality assessment.
+                    </p>
                 </div>
-                ''', unsafe_allow_html=True)
+                """, unsafe_allow_html=True)
 
             # Morphological scoring
             st.markdown("**Morphological Scoring**")
