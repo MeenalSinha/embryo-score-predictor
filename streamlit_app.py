@@ -1414,7 +1414,7 @@ elif page == "Model Info (Numerical)":
     fig_imp = px.pie(
         values=importance, 
         names=rf_features,
-        title="🥧 Feature Importance Distribution",
+        title="🥧 Feature Importance Distribution            ",
         color_discrete_sequence=px.colors.qualitative.Set3,
         hole=0.4
     )
