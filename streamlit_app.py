@@ -1052,18 +1052,16 @@ elif page == "Image Prediction":
                 }
             ))
             
-            score_fig.update_layout(
-                height=300,
-                template='plotly_white',
-                title_x=0.5,
-                margin=dict(l=20, r=20, t=60, b=20)
-            )
+                    title=None,
             
             st.plotly_chart(score_fig, use_container_width=True)
 
-            # Display prediction result
+                    paper_bgcolor="rgba(0,0,0,0)",
+                    showlegend=False
             st.markdown(f'''
             <div class="image-prediction-box">
+                # Add custom title above the gauge
+                st.markdown(f"<h3 style='text-align: center; color: #2E86AB; margin-bottom: 10px;'>🎯 Quality Score - Embryo {selected_embryo}</h3>", unsafe_allow_html=True)
                 <h3>AI Analysis Results</h3>
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1rem 0;">
                     <div style="background: rgba(255,255,255,0.3); padding: 0.75rem; border-radius: 8px;">
