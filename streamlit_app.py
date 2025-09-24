@@ -684,11 +684,8 @@ elif page == "Image Prediction":
     due to deployment constraints, but demonstrates the interface for image-based predictions.
     """)
     
-    # Threshold setting section
-    st.markdown('''
-    <div class="threshold-section">
-    </div>
-    ''', unsafe_allow_html=True)
+    # Simple threshold heading
+    st.markdown("### ⚙️ Set Prediction Threshold")
     
     # Threshold slider
     threshold = st.slider(
