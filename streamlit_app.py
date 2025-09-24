@@ -30,69 +30,38 @@ st.set_page_config(
 # Custom CSS for better styling
 st.markdown("""
 <style>
-    /* Import Google Fonts */
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-    
-    /* Global Styles */
-    .stApp {
-        font-family: 'Inter', sans-serif;
-    }
-    
-    /* Hide Streamlit branding */
-    #MainMenu {visibility: hidden;}
-    footer {visibility: hidden;}
-    header {visibility: hidden;}
-    
     .gradient-header {
         background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 25%, #d946ef 50%, #f97316 75%, #fb923c 100%);
         padding: 2.5rem 2rem;
         border-radius: 20px;
         text-align: center;
         margin: 2rem 0;
-        box-shadow: 0 20px 40px rgba(0,0,0,0.15), 0 0 0 1px rgba(255,255,255,0.1) inset;
-        position: relative;
-        overflow: hidden;
-    }
-    
-    .gradient-header::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: linear-gradient(45deg, rgba(255,255,255,0.1) 0%, transparent 50%);
-        pointer-events: none;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
     }
     
     .gradient-header h1 {
         color: white;
         font-size: 2.8rem;
-        font-weight: 600;
+        font-weight: 700;
         margin: 0;
-        text-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        text-shadow: 0 2px 4px rgba(0,0,0,0.3);
         display: flex;
         align-items: center;
         justify-content: center;
         gap: 1rem;
-        position: relative;
-        z-index: 1;
     }
     
     .gradient-header .dna-icon {
         font-size: 3rem;
-        animation: pulse 2s infinite, rotate 10s linear infinite;
-        filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+        animation: pulse 2s infinite;
     }
     
     .gradient-header .subtitle {
         color: rgba(255,255,255,0.9);
         font-size: 1.3rem;
-        font-weight: 300;
+        font-weight: 400;
         margin-top: 0.5rem;
-        text-shadow: 0 2px 4px rgba(0,0,0,0.2);
-        position: relative;
-        z-index: 1;
+        text-shadow: 0 1px 2px rgba(0,0,0,0.2);
     }
     
     @keyframes pulse {
@@ -100,111 +69,19 @@ st.markdown("""
         50% { transform: scale(1.05); }
     }
     
-    @keyframes rotate {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
-    }
-    
-    /* Enhanced Cards */
-    .metric-card {
-        background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
-        padding: 1.5rem;
-        border-radius: 16px;
-        border: 1px solid #e2e8f0;
-        margin: 0.5rem 0;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.05), 0 0 0 1px rgba(255,255,255,0.8) inset;
-        transition: all 0.3s ease;
-        position: relative;
-        overflow: hidden;
-    }
-    
-    .metric-card::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 4px;
-        height: 100%;
-        background: linear-gradient(135deg, #3b82f6, #8b5cf6);
-        border-radius: 0 2px 2px 0;
-    }
-    
-    .metric-card:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 25px rgba(0,0,0,0.1), 0 0 0 1px rgba(255,255,255,0.9) inset;
-    }
-    
-    .metric-card h3 {
-        color: #475569;
-        font-size: 0.9rem;
-        font-weight: 500;
-        margin: 0 0 0.5rem 0;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-    }
-    
-    .metric-card h2 {
-        color: #1e293b;
-        font-size: 2rem;
-        font-weight: 600;
-        margin: 0;
-    }
-    
-    /* Enhanced Prediction Result */
-    .prediction-result {
-        background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 50%, #a7f3d0 100%);
-        padding: 2rem;
-        border-radius: 20px;
-        border: 2px solid #10b981;
-        text-align: center;
-        margin: 2rem 0;
-        box-shadow: 0 10px 30px rgba(16, 185, 129, 0.2);
-        position: relative;
-        overflow: hidden;
-    }
-    
-    .prediction-result::before {
-        content: '';
-        position: absolute;
-        top: -50%;
-        left: -50%;
-        width: 200%;
-        height: 200%;
-        background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-        animation: shimmer 3s ease-in-out infinite;
-    }
-    
-    @keyframes shimmer {
-        0%, 100% { transform: rotate(0deg); }
-        50% { transform: rotate(180deg); }
-    }
-    
-    .prediction-result h2 {
-        color: #065f46;
-        font-weight: 600;
-        margin-bottom: 1rem;
-        position: relative;
-        z-index: 1;
-    }
-    
-    .prediction-result h1 {
-        position: relative;
-        z-index: 1;
-    }
-    
     .threshold-section {
-        background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-        padding: 1.5rem;
+        background: linear-gradient(135deg, #f0f9ff 0%, #e0e7ff 50%, #fef3c7 100%);
+        padding: 2rem;
         border-radius: 16px;
         margin: 2rem 0;
-        border: 1px solid #e2e8f0;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        border: 1px solid #e5e7eb;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
     }
     
     .threshold-title {
         font-size: 1.5rem;
         font-weight: 600;
-        color: #1e293b;
+        color: #374151;
         margin-bottom: 1.5rem;
         display: flex;
         align-items: center;
@@ -215,207 +92,89 @@ st.markdown("""
         text-align: center;
         font-size: 1.2rem;
         font-weight: 600;
-        color: #0f172a;
+        color: #1f2937;
         margin-top: 1rem;
         padding: 0.5rem;
-        background: rgba(255,255,255,0.8);
+        background: rgba(255,255,255,0.7);
         border-radius: 8px;
-        border: 1px solid #e2e8f0;
     }
-    
     .sub-header {
-        font-size: 1.8rem;
+        font-size: 1.5rem;
         font-weight: 600;
-        color: #1e293b;
-        margin: 2rem 0 1rem 0;
-        padding-bottom: 0.5rem;
-        border-bottom: 3px solid #e2e8f0;
-        position: relative;
+        color: #2c3e50;
+        margin: 1rem 0;
     }
-    
-    .sub-header::after {
-        content: '';
-        position: absolute;
-        bottom: -3px;
-        left: 0;
-        width: 60px;
-        height: 3px;
-        background: linear-gradient(135deg, #3b82f6, #8b5cf6);
-        border-radius: 2px;
+    .metric-card {
+        background-color: #f8f9fa;
+        padding: 1rem;
+        border-radius: 10px;
+        border-left: 4px solid #1f77b4;
+        margin: 0.5rem 0;
     }
-    
-    /* Enhanced Info Boxes */
-    .error-message {
-        background: linear-gradient(135deg, #fef2f2 0%, #fecaca 100%);
+    .prediction-result {
+        background-color: #e8f5e8;
         padding: 1.5rem;
-        border-radius: 16px;
+        border-radius: 10px;
+        border: 2px solid #28a745;
+        text-align: center;
+        margin: 1rem 0;
+    }
+    .error-message {
+        background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+        padding: 1.5rem;
+        border-radius: 12px;
         border-left: 4px solid #ef4444;
         color: #dc2626;
         margin: 1rem 0;
-        box-shadow: 0 4px 12px rgba(239, 68, 68, 0.1);
     }
-    
     .info-box {
-        background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+        background: #eff6ff;
         padding: 1.5rem;
-        border-radius: 16px;
+        border-radius: 12px;
         border-left: 4px solid #3b82f6;
         margin: 1rem 0;
-        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1);
     }
-    
     .image-prediction-box {
-        background: linear-gradient(135deg, #f0fdf4 0%, #bbf7d0 100%);
+        background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
         padding: 2rem;
-        border-radius: 20px;
+        border-radius: 16px;
         border: 2px solid #10b981;
         text-align: center;
         margin: 2rem 0;
-        box-shadow: 0 8px 25px rgba(16, 185, 129, 0.15);
-        position: relative;
-        overflow: hidden;
     }
     
-    .image-prediction-box::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.1) 0%, transparent 70%);
-        pointer-events: none;
+    /* Hide the blue bar in file uploader */
+    .stFileUploader > div > div > div > div {
+        border: none !important;
     }
     
-    .image-prediction-box h3 {
-        position: relative;
-        z-index: 1;
-        color: #065f46;
-        margin-bottom: 1rem;
+    /* Remove blue border from file uploader */
+    .stFileUploader > div > div {
+        border: none !important;
+        background: transparent !important;
     }
     
-    .image-prediction-box p {
-        position: relative;
-        z-index: 1;
-        margin: 0.5rem 0;
-    }
-    
-    /* Enhanced Buttons */
-    .stButton > button {
-        background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
-        color: white;
-        border: none;
-        border-radius: 12px;
-        padding: 0.75rem 2rem;
-        font-weight: 500;
-        font-size: 1rem;
-        transition: all 0.3s ease;
-        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
-    }
-    
-    .stButton > button:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
-    }
-    
-    /* Enhanced Sidebar */
-    .css-1d391kg {
-        background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
-    }
-    
-    /* Enhanced File Uploader */
+    /* Clean up file uploader styling */
     .stFileUploader {
-        border: 2px dashed #cbd5e1 !important;
-        border-radius: 16px !important;
-        padding: 2rem !important;
-        background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%) !important;
-        transition: all 0.3s ease !important;
+        border: 1px solid #e5e7eb !important;
+        border-radius: 8px !important;
+        padding: 1rem !important;
+        background: #f9fafb !important;
     }
     
-    .stFileUploader:hover {
-        border-color: #3b82f6 !important;
-        background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%) !important;
+    /* Remove writing cursor from selectbox */
+    .stSelectbox > div > div > div {
+        cursor: pointer !important;
     }
     
-    /* Enhanced Selectbox */
-    .stSelectbox > div > div {
-        background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
-        border: 1px solid #e2e8f0;
-        border-radius: 8px;
+    /* Remove writing cursor from selectbox input */
+    .stSelectbox input {
+        cursor: pointer !important;
     }
     
-    /* Enhanced Slider */
-    .stSlider > div > div > div {
-        background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
-    }
-    
-    /* Enhanced Dataframe */
-    .stDataFrame {
-        border-radius: 12px;
-        overflow: hidden;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-    }
-    
-    /* Enhanced Metrics */
-    .css-1xarl3l {
-        background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
-        border: 1px solid #e2e8f0;
-        border-radius: 12px;
-        padding: 1rem;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    }
-    
-    /* Enhanced Plotly Charts */
-    .js-plotly-plot {
-        border-radius: 12px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-        overflow: hidden;
-    }
-    
-    /* Footer Enhancement */
-    .footer {
-        background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
-        color: #e2e8f0;
-        padding: 2rem;
-        border-radius: 16px;
-        margin-top: 3rem;
-        text-align: center;
-        box-shadow: 0 -4px 12px rgba(0,0,0,0.1);
-    }
-    
-    /* Loading Animation */
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(20px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-    
-    .stApp > div {
-        animation: fadeIn 0.6s ease-out;
-    }
-    
-    /* Responsive Design */
-    @media (max-width: 768px) {
-        .gradient-header h1 {
-            font-size: 2rem;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-        
-        .gradient-header .dna-icon {
-            font-size: 2rem;
-        }
-        
-        .gradient-header .subtitle {
-            font-size: 1rem;
-        }
-        
-        .metric-card {
-            padding: 1rem;
-        }
-        
-        .prediction-result {
-            padding: 1.5rem;
-        }
+    /* Remove writing cursor from selectbox dropdown */
+    .stSelectbox [data-baseweb="select"] {
+        cursor: pointer !important;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -903,7 +662,7 @@ if page == "Numerical Prediction":
             <h2>Predicted Embryo Quality Score</h2>
             <h1 style="color: #28a745; font-size: 3rem;">{prediction:.2f}/10</h1>
             <p style="font-size: 1.2rem;">
-                {'High Quality' if prediction >= 7 else 'Medium Quality' if prediction >= 5 else 'Low Quality'}
+                {'🟢 High Quality' if prediction >= 7 else '🟡 Medium Quality' if prediction >= 5 else '🔴 Low Quality'}
             </p>
         </div>
         ''', unsafe_allow_html=True)
@@ -926,9 +685,7 @@ elif page == "Image Prediction":
     """)
     
     # Simple threshold heading
-    st.markdown("""
-    ### ⚙️ Set Prediction Threshold
-    """, unsafe_allow_html=True)
+    st.markdown("### ⚙️ Set Prediction Threshold")
     
     # Threshold slider
     threshold = st.slider(
@@ -938,14 +695,11 @@ elif page == "Image Prediction":
         value=0.5,
         step=0.05,
         help="Set the minimum threshold for embryo quality classification"
-        <h2>Predicted Embryo Quality Score</h2>
+    )
     
     st.markdown(f'''
     <div class="threshold-value">
         Current Threshold = {threshold:.2f}
-        <div style="margin-top: 1rem; padding: 0.5rem; background: rgba(255,255,255,0.3); border-radius: 8px; position: relative; z-index: 1;">
-            <small style="color: #065f46;">Confidence Level: High | Model Accuracy: 85%</small>
-        </div>
     </div>
     ''', unsafe_allow_html=True)
     
@@ -953,7 +707,7 @@ elif page == "Image Prediction":
     
     # Sidebar information
     with st.sidebar:
-        st.header("How to Use")
+        st.header("📋 How to Use")
         st.markdown("""
         1. **Upload Images**: Select embryo images (Day 3-5)
         2. **Image Analysis**: Get quality predictions
@@ -961,7 +715,7 @@ elif page == "Image Prediction":
         4. **View Results**: See comprehensive assessment results
         """)
         
-        st.header("Note")
+        st.header("⚠️ Note")
         st.info("""
         This is a simplified version for demonstration. 
         The full version with deep learning models 
@@ -969,7 +723,7 @@ elif page == "Image Prediction":
         """)
     
     # File uploader
-    uploaded_files = st.file_uploader("Upload Embryo Images",
+    uploaded_files = st.file_uploader("📤 Upload Embryo Images",
                                       type=["jpg", "jpeg", "png"], accept_multiple_files=True)
     
     results = []
@@ -1011,27 +765,19 @@ elif page == "Image Prediction":
             st.markdown(f'''
             <div class="image-prediction-box">
                 <h3>AI Analysis Results</h3>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1rem 0;">
-                    <div style="background: rgba(255,255,255,0.3); padding: 0.75rem; border-radius: 8px;">
-                        <strong>Quality Score</strong><br/>
-                        <span style="font-size: 1.2rem; color: #065f46;">{score:.2f}/10</span>
-                    </div>
-                    <div style="background: rgba(255,255,255,0.3); padding: 0.75rem; border-radius: 8px;">
-                        <strong>Confidence</strong><br/>
-                        <span style="font-size: 1.2rem; color: #065f46;">{confidence:.1%}</span>
-                    </div>
-                </div>
-                <p style="font-size: 1.1rem; margin: 1rem 0;"><strong>Classification:</strong> {'High Quality' if score >= 7 else 'Medium Quality' if score >= 5 else 'Low Quality'}</p>
-                <p style="font-size: 0.9rem; color: #047857;"><strong>Grad-CAM:</strong> {'Generated' if heatmap is not None else 'Unavailable'}</p>
+                <p><strong>Quality Score:</strong> {score:.2f}/10</p>
+                <p><strong>Confidence:</strong> {confidence:.2%}</p>
+                <p><strong>Classification:</strong> {'🟢 High Quality' if score >= 7 else '🟡 Medium Quality' if score >= 5 else '🔴 Low Quality'}</p>
+                <p><strong>Grad-CAM:</strong> {'✅ Generated' if heatmap is not None else '❌ Unavailable'}</p>
             </div>
             ''', unsafe_allow_html=True)
 
             # Add explanation for Grad-CAM
             if heatmap is not None:
                 st.markdown("""
-                <div style="background: linear-gradient(135deg, #f0f9ff 0%, #e0e7ff 100%); padding: 1.5rem; border-radius: 12px; margin: 1rem 0; border-left: 4px solid #3b82f6;">
-                    <p style="margin: 0; font-size: 0.95rem; color: #1e40af; line-height: 1.6;">
-                        <strong>Grad-CAM Explanation:</strong> The heatmap shows regions the AI model focuses on when making predictions. 
+                <div style="background: #f0f9ff; padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+                    <p style="margin: 0; font-size: 0.9rem; color: #1e40af;">
+                        <strong>🔍 Grad-CAM Explanation:</strong> The heatmap shows regions the AI model focuses on when making predictions. 
                         Red/yellow areas indicate high attention, while blue areas show low attention. This helps understand what features 
                         the model considers important for quality assessment.
                     </p>
@@ -1039,7 +785,7 @@ elif page == "Image Prediction":
                 """, unsafe_allow_html=True)
 
             # Morphological scoring
-            st.markdown("### Morphological Scoring")
+            st.markdown("**Morphological Scoring**")
             col3, col4, col5 = st.columns(3)
             
             with col3:
@@ -1068,13 +814,7 @@ elif page == "Image Prediction":
 
         # Final summary
         if results:
-            st.markdown("""
-            <div style="margin: 3rem 0 1rem 0;">
-                <h2 style="color: #1e293b; font-weight: 600; display: flex; align-items: center; gap: 0.5rem;">
-                    Results Summary
-                </h2>
-            </div>
-            """, unsafe_allow_html=True)
+            st.markdown("## 📊 Results Summary")
             results_df = pd.DataFrame(results)
             st.dataframe(results_df, use_container_width=True)
 
@@ -1084,43 +824,34 @@ elif page == "Image Prediction":
             with col1:
                 # Export CSV
                 csv = results_df.to_csv(index=False).encode("utf-8")
-                st.download_button("Download Results (CSV)", csv, "embryo_results.csv", "text/csv", 
-                                 help="Download detailed results in CSV format")
+                st.download_button("⬇️ Download Results (CSV)", csv, "embryo_results.csv", "text/csv")
             
             with col2:
                 # Export PDF
                 try:
                     pdf_buffer = generate_pdf_report(results_df, uploaded_files)
                     st.download_button(
-                        "Download Report (PDF)", 
+                        "📄 Download Report (PDF)", 
                         pdf_buffer.getvalue(), 
                         "embryo_analysis_report.pdf", 
-                        "application/pdf",
-                        help="Download comprehensive analysis report"
+                        "application/pdf"
                     )
                 except Exception as e:
                     st.error(f"Error generating PDF: {str(e)}")
     else:
         st.markdown('<div class="info-box">', unsafe_allow_html=True)
         st.markdown("""
-        ### Get Started with Image Analysis
+        ### 🚀 Get Started with Image Prediction
         
-        1. **Upload Images**: Select embryo images using the uploader below
-        2. **Set Threshold**: Adjust the quality threshold above
-        3. **AI Analysis**: Get automated quality predictions
-        4. **Morphological Scoring**: Input expansion, ICM, and TE grades
-        5. **Export Results**: Download CSV or PDF reports
+        1. **Upload embryo images** using the file uploader above
+        2. **Supported formats**: PNG, JPG, JPEG
+        3. **Processing**: Simplified analysis for demonstration
+        4. **Results**: Quality scores and morphological assessment
         
-        ### Features
-        - **Grad-CAM Visualization**: See what the AI focuses on
-        - **Combined Scoring**: AI + morphological assessment
-        - **Professional Reports**: Comprehensive PDF documentation
-        
-        ### Note
-        This is a demonstration version with simplified image analysis. 
-        Production deployment would require deep learning models and GPU resources.
+        ### 📝 Note
+        This simplified version demonstrates the interface. For production use with 
+        deep learning models, additional computational resources would be required.
         """)
-        st.markdown('</div>', unsafe_allow_html=True)
 
 elif page == "Model Info (Numerical)":
     st.markdown('<div class="sub-header">Random Forest Model Performance</div>', unsafe_allow_html=True)
@@ -1132,8 +863,7 @@ elif page == "Model Info (Numerical)":
         st.markdown(f'''
         <div class="metric-card">
             <h3>R² Score</h3>
-            <h2>{rf_r2:.3f}</h2>
-            <p style="font-size: 0.8rem; color: #64748b; margin: 0.5rem 0 0 0;">Model Accuracy</p>
+            <h2 style="color: #1f77b4;">{rf_r2:.3f}</h2>
         </div>
         ''', unsafe_allow_html=True)
     
@@ -1141,8 +871,7 @@ elif page == "Model Info (Numerical)":
         st.markdown(f'''
         <div class="metric-card">
             <h3>RMSE</h3>
-            <h2>{np.sqrt(rf_mse):.3f}</h2>
-            <p style="font-size: 0.8rem; color: #64748b; margin: 0.5rem 0 0 0;">Prediction Error</p>
+            <h2 style="color: #1f77b4;">{np.sqrt(rf_mse):.3f}</h2>
         </div>
         ''', unsafe_allow_html=True)
     
@@ -1150,8 +879,7 @@ elif page == "Model Info (Numerical)":
         st.markdown(f'''
         <div class="metric-card">
             <h3>Training Samples</h3>
-            <h2>800</h2>
-            <p style="font-size: 0.8rem; color: #64748b; margin: 0.5rem 0 0 0;">Dataset Size</p>
+            <h2 style="color: #1f77b4;">800</h2>
         </div>
         ''', unsafe_allow_html=True)
     
@@ -1177,42 +905,16 @@ elif page == "Data Analysis":
     df = generate_sample_data()
     
     # Data overview
-    st.markdown("""
-    <div style="margin: 2rem 0 1rem 0;">
-        <h3 style="color: #1e293b; font-weight: 600; display: flex; align-items: center; gap: 0.5rem;">
-            Dataset Overview
-        </h3>
-    </div>
-    """, unsafe_allow_html=True)
+    st.subheader("Dataset Overview")
     col1, col2 = st.columns(2)
     
     with col1:
-        st.markdown(f'''
-        <div class="metric-card">
-            <h3>Total Samples</h3>
-            <h2>{len(df)}</h2>
-        </div>
-        ''', unsafe_allow_html=True)
-        st.markdown(f'''
-        <div class="metric-card">
-            <h3>Average Quality Score</h3>
-            <h2>{df['quality_score'].mean():.2f}</h2>
-        </div>
-        ''', unsafe_allow_html=True)
+        st.metric("Total Samples", len(df))
+        st.metric("Average Quality Score", f"{df['quality_score'].mean():.2f}")
     
     with col2:
-        st.markdown(f'''
-        <div class="metric-card">
-            <h3>🟢 High Quality (>7)</h3>
-            <h2>{len(df[df['quality_score'] > 7])}</h2>
-        </div>
-        ''', unsafe_allow_html=True)
-        st.markdown(f'''
-        <div class="metric-card">
-            <h3>Low Quality (<5)</h3>
-            <h2>{len(df[df['quality_score'] < 5])}</h2>
-        </div>
-        ''', unsafe_allow_html=True)
+        st.metric("High Quality (>7)", len(df[df['quality_score'] > 7]))
+        st.metric("Low Quality (<5)", len(df[df['quality_score'] < 5]))
     
     # Distribution plots
     fig_dist = px.histogram(df, x='quality_score', nbins=30,
@@ -1232,13 +934,13 @@ elif page == "About":
     st.markdown('<div class="sub-header">About This Application</div>', unsafe_allow_html=True)
     
     st.markdown("""
-    ### Purpose
+    ### 🎯 Purpose
     This IVF Embryo Score Predictor combines two approaches for embryo quality assessment:
     
     1. **Numerical Parameter Analysis**: Uses Random Forest machine learning on clinical parameters
     2. **Image-Based Assessment**: Simplified image analysis for demonstration
     
-    ### Features
+    ### 🔬 Features
     
     #### Numerical Prediction
     - **Random Forest Algorithm**: Accurate predictions based on clinical parameters
@@ -1250,7 +952,7 @@ elif page == "About":
     - **Morphological Scoring**: Combined assessment approach
     - **Export Capabilities**: CSV reports for record keeping
     
-    ### Parameters Used
+    ### 📊 Parameters Used
     
     #### Numerical Model
     - **Day 3 Parameters**: Cell count, fragmentation percentage
@@ -1258,24 +960,24 @@ elif page == "About":
     - **Clinical Data**: Maternal age, fertilization timing
     - **Culture Conditions**: Medium type, temperature, CO2 concentration
     
-    ### Important Note
+    ### ⚠️ Important Note
     This tool is for educational and research purposes only. Clinical decisions should always be made
     by qualified medical professionals based on comprehensive patient assessment.
     
-    ### Technical Details
+    ### 🔧 Technical Details
     - **Numerical Model**: Random Forest Regressor with StandardScaler
     - **Training Data**: 1000 synthetic samples based on clinical patterns
     - **Performance**: R² score of ~0.85 for numerical predictions
     - **Deployment**: Optimized for Streamlit Cloud with minimal dependencies
     
-    ### For Healthcare Professionals
+    ### 👨‍⚕️ For Healthcare Professionals
     This application can serve as a decision support tool to:
     - Standardize embryo assessment procedures
     - Identify key factors affecting embryo quality
     - Support patient counseling with objective data
     - Demonstrate the potential of AI in reproductive medicine
     
-    ### Future Enhancements
+    ### 🚀 Future Enhancements
     With additional computational resources, this application could include:
     - Deep learning models for image analysis
     - Grad-CAM visualization for AI interpretability
@@ -1289,25 +991,7 @@ elif page == "About":
 # Footer
 st.markdown("---")
 st.markdown("""
-<div class="footer">
-    <div style="display: flex; justify-content: center; align-items: center; gap: 2rem; flex-wrap: wrap;">
-        <div style="display: flex; align-items: center; gap: 0.5rem;">
-            <span style="font-size: 1.5rem;">DNA</span>
-            <strong>IVF Embryo Score Predictor</strong>
-        </div>
-        <div style="color: #94a3b8;">|</div>
-        <div style="display: flex; align-items: center; gap: 0.5rem;">
-            <span style="font-size: 1.2rem;">Built</span>
-            <span>Built with Streamlit</span>
-        </div>
-        <div style="color: #94a3b8;">|</div>
-        <div style="display: flex; align-items: center; gap: 0.5rem;">
-            <span style="font-size: 1.2rem;">Education</span>
-            <span>For Educational Use Only</span>
-        </div>
-    </div>
-    <div style="margin-top: 1rem; font-size: 0.9rem; color: #94a3b8;">
-        Advanced Reproductive Medicine AI Research
-    </div>
+<div style='text-align: center; color: #666; padding: 1rem;'>
+    IVF Embryo Score Predictor | Built with Streamlit | For Educational Use Only
 </div>
 """, unsafe_allow_html=True)
