@@ -81,6 +81,25 @@ st.markdown("""
         text-align: center;
         margin: 2rem 0;
     }
+    
+    /* Hide the blue bar in file uploader */
+    .stFileUploader > div > div > div > div {
+        border: none !important;
+    }
+    
+    /* Remove blue border from file uploader */
+    .stFileUploader > div > div {
+        border: none !important;
+        background: transparent !important;
+    }
+    
+    /* Clean up file uploader styling */
+    .stFileUploader {
+        border: 1px solid #e5e7eb !important;
+        border-radius: 8px !important;
+        padding: 1rem !important;
+        background: #f9fafb !important;
+    }
 </style>
 """, unsafe_allow_html=True)
 
