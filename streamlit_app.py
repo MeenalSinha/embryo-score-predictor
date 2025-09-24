@@ -938,7 +938,7 @@ elif page == "Image Prediction":
         value=0.5,
         step=0.05,
         help="Set the minimum threshold for embryo quality classification"
-        <h2>Predicted Embryo Quality Score</h2>
+    )
     
     st.markdown(f'''
     <div class="threshold-value">
