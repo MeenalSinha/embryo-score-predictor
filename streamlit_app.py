@@ -797,7 +797,31 @@ elif page == "Image Prediction":
     ''', unsafe_allow_html=True)
     
     st.markdown("<br>", unsafe_allow_html=True)
-        st.markdown('</div>', unsafe_allow_html=True)
+    
+    # Threshold setting section
+    st.markdown('''
+    <div class="threshold-section">
+        <div class="threshold-title">
+            ⚙️ Set Prediction Threshold
+        </div>
+    </div>
+    ''', unsafe_allow_html=True)
+    
+    # Threshold slider
+    threshold = st.slider(
+        "Quality Score Threshold",
+        min_value=0.0,
+        max_value=1.0,
+        value=0.5,
+        step=0.05,
+        help="Set the minimum threshold for embryo quality classification"
+    )
+    
+    st.markdown(f'''
+    <div class="threshold-value">
+        Current Threshold = {threshold:.2f}
+    </div>
+    ''', unsafe_allow_html=True)
 
 elif page == "Model Info (Numerical)":
     st.markdown('<div class="sub-header">Random Forest Model Performance</div>', unsafe_allow_html=True)
