@@ -33,6 +33,21 @@ st.markdown("""
 <style>
     /* Force sidebar to always be visible */
     .css-1d391kg, .css-1lcbmhc, .css-1outpf7, .css-1y4p8pa, 
+    /* Align all headings to the left */
+    h1, h2, h3, h4, h5, h6 {
+        text-align: left !important;
+    }
+    
+    /* Specifically target plotly chart titles and graph headings */
+    .js-plotly-plot .plotly .gtitle {
+        text-anchor: start !important;
+    }
+    
+    /* Target streamlit metric labels and chart titles */
+    [data-testid="metric-container"] > div > div > div {
+        text-align: left !important;
+    }
+    
     .css-17eq0hr, .css-1544g2n, .css-1lcbmhc, .css-1outpf7,
     section[data-testid="stSidebar"] {
         min-width: 300px !important;
