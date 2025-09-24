@@ -900,10 +900,10 @@ if page == "Numerical Prediction":
         # Display result
         st.markdown(f'''
         <div class="prediction-result">
-            <h2>🎯 Predicted Embryo Quality Score</h2>
+            <h2>Predicted Embryo Quality Score</h2>
             <h1 style="color: #28a745; font-size: 3rem;">{prediction:.2f}/10</h1>
             <p style="font-size: 1.2rem;">
-                {'🟢 High Quality' if prediction >= 7 else '🟡 Medium Quality' if prediction >= 5 else '🔴 Low Quality'}
+                {'High Quality' if prediction >= 7 else 'Medium Quality' if prediction >= 5 else 'Low Quality'}
             </p>
         </div>
         ''', unsafe_allow_html=True)
@@ -953,7 +953,7 @@ elif page == "Image Prediction":
     
     # Sidebar information
     with st.sidebar:
-        st.header("📋 How to Use")
+        st.header("How to Use")
         st.markdown("""
         1. **Upload Images**: Select embryo images (Day 3-5)
         2. **Image Analysis**: Get quality predictions
@@ -961,7 +961,7 @@ elif page == "Image Prediction":
         4. **View Results**: See comprehensive assessment results
         """)
         
-        st.header("⚠️ Note")
+        st.header("Note")
         st.info("""
         This is a simplified version for demonstration. 
         The full version with deep learning models 
@@ -969,7 +969,7 @@ elif page == "Image Prediction":
         """)
     
     # File uploader
-    uploaded_files = st.file_uploader("📤 Upload Embryo Images",
+    uploaded_files = st.file_uploader("Upload Embryo Images",
                                       type=["jpg", "jpeg", "png"], accept_multiple_files=True)
     
     results = []
@@ -1010,7 +1010,7 @@ elif page == "Image Prediction":
             # Display prediction result
             st.markdown(f'''
             <div class="image-prediction-box">
-                <h3>🤖 AI Analysis Results</h3>
+                <h3>AI Analysis Results</h3>
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1rem 0;">
                     <div style="background: rgba(255,255,255,0.3); padding: 0.75rem; border-radius: 8px;">
                         <strong>Quality Score</strong><br/>
@@ -1021,8 +1021,8 @@ elif page == "Image Prediction":
                         <span style="font-size: 1.2rem; color: #065f46;">{confidence:.1%}</span>
                     </div>
                 </div>
-                <p style="font-size: 1.1rem; margin: 1rem 0;"><strong>Classification:</strong> {'🟢 High Quality' if score >= 7 else '🟡 Medium Quality' if score >= 5 else '🔴 Low Quality'}</p>
-                <p style="font-size: 0.9rem; color: #047857;"><strong>Grad-CAM:</strong> {'✅ Generated' if heatmap is not None else '❌ Unavailable'}</p>
+                <p style="font-size: 1.1rem; margin: 1rem 0;"><strong>Classification:</strong> {'High Quality' if score >= 7 else 'Medium Quality' if score >= 5 else 'Low Quality'}</p>
+                <p style="font-size: 0.9rem; color: #047857;"><strong>Grad-CAM:</strong> {'Generated' if heatmap is not None else 'Unavailable'}</p>
             </div>
             ''', unsafe_allow_html=True)
 
@@ -1084,7 +1084,7 @@ elif page == "Image Prediction":
             with col1:
                 # Export CSV
                 csv = results_df.to_csv(index=False).encode("utf-8")
-                st.download_button("📊 Download Results (CSV)", csv, "embryo_results.csv", "text/csv", 
+                st.download_button("Download Results (CSV)", csv, "embryo_results.csv", "text/csv", 
                                  help="Download detailed results in CSV format")
             
             with col2:
@@ -1149,7 +1149,7 @@ elif page == "Model Info (Numerical)":
     with col3:
         st.markdown(f'''
         <div class="metric-card">
-            <h3>🎯 Training Samples</h3>
+            <h3>Training Samples</h3>
             <h2>800</h2>
             <p style="font-size: 0.8rem; color: #64748b; margin: 0.5rem 0 0 0;">Dataset Size</p>
         </div>
