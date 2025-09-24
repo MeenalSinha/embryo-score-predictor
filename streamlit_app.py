@@ -1334,7 +1334,7 @@ elif page == "Image Prediction":
                         "application/pdf",
                         help="Download comprehensive analysis report"
                     )
-                except Exception as e:
+        st.markdown("""
                     st.error(f"Error generating PDF: {str(e)}")
     else:
         st.markdown('<div class="info-box">', unsafe_allow_html=True)
@@ -1349,4 +1349,10 @@ elif page == "Image Prediction":
         
         ### ✨ Features
         - **Grad-CAM Visualization**: See what the AI focuses on
-        - **Combine
+        - **Combined Scoring**: Merge AI predictions with morphological assessment
+        - **Export Options**: Download results as CSV or comprehensive PDF reports
+        - **Real-time Analysis**: Instant feedback on embryo quality
+        
+        Upload your first embryo image to begin the analysis!
+        """, unsafe_allow_html=True)
+        st.markdown('</div>', unsafe_allow_html=True)
