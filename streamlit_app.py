@@ -1052,16 +1052,16 @@ elif page == "Image Prediction":
                 }
             ))
             
-                    title=None,
+            score_fig.update_layout(
+                height=400,
+                paper_bgcolor="rgba(0,0,0,0)",
+                showlegend=False
+            )
             
             st.plotly_chart(score_fig, use_container_width=True)
-                title=None
-                    paper_bgcolor="rgba(0,0,0,0)",
-                    showlegend=False
+            
             st.markdown(f'''
             <div class="image-prediction-box">
-                # Add custom title above the gauge
-                st.markdown(f"<h3 style='text-align: center; color: #2E86AB; margin-bottom: 10px;'>🎯 Quality Score - Embryo {selected_embryo}</h3>", unsafe_allow_html=True)
                 <h3>AI Analysis Results</h3>
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1rem 0;">
                     <div style="background: rgba(255,255,255,0.3); padding: 0.75rem; border-radius: 8px;">
@@ -1117,17 +1117,13 @@ elif page == "Image Prediction":
 
             if idx < len(uploaded_files[:3]) - 1:
                 st.markdown("---")
-                
-                # Center the comparison chart title and content
-                col1, col2, col3 = st.columns([1, 2, 1])
-                with col2:
-                    st.markdown("<h3 style='text-align: center; color: #2E86AB;'>📊 Embryo Quality Comparison</h3>", unsafe_allow_html=True)
+        
         # Final summary
         if results:
             st.markdown("""
             <div style="margin: 3rem 0 1rem 0;">
                 <h2 style="color: #1e293b; font-weight: 600; display: flex; align-items: center; gap: 0.5rem;">
-                    Results Summary
+                    📊 Results Summary
                 </h2>
             </div>
             """, unsafe_allow_html=True)
@@ -1329,7 +1325,7 @@ elif page == "Data Analysis":
     st.markdown("""
     <div style="margin: 2rem 0 1rem 0;">
         <h3 style="color: #1e293b; font-weight: 600; display: flex; align-items: center; gap: 0.5rem;">
-            Dataset Overview
+            📊 Dataset Overview
         </h3>
     </div>
     """, unsafe_allow_html=True)
@@ -1490,17 +1486,17 @@ st.markdown("""
 <div class="footer">
     <div style="display: flex; justify-content: center; align-items: center; gap: 2rem; flex-wrap: wrap;">
         <div style="display: flex; align-items: center; gap: 0.5rem;">
-            <span style="font-size: 1.5rem;">DNA</span>
+            <span style="font-size: 1.5rem;">🧬</span>
             <strong>IVF Embryo Score Predictor</strong>
         </div>
         <div style="color: #94a3b8;">|</div>
         <div style="display: flex; align-items: center; gap: 0.5rem;">
-            <span style="font-size: 1.2rem;">Built</span>
+            <span style="font-size: 1.2rem;">⚡</span>
             <span>Built with Streamlit</span>
         </div>
         <div style="color: #94a3b8;">|</div>
         <div style="display: flex; align-items: center; gap: 0.5rem;">
-            <span style="font-size: 1.2rem;">Education</span>
+            <span style="font-size: 1.2rem;">🎓</span>
             <span>For Educational Use Only</span>
         </div>
     </div>
