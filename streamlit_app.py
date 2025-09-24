@@ -70,18 +70,9 @@ st.markdown("""
     
     /* Ensure main content adjusts properly */
     .main .block-container {
-        padding-top: 0.5rem;
+        padding-left: 1rem;
         padding-right: 1rem;
         max-width: none;
-    }
-    
-    /* Reduce top margin for the app */
-    .stApp > header {
-        background-color: transparent;
-    }
-    
-    .stApp {
-        margin-top: -50px;
     }
     
     /* Hide any collapse controls */
