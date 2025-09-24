@@ -10,6 +10,8 @@ from sklearn.metrics import mean_squared_error, r2_score
 import joblib
 import os
 from PIL import Image
+import matplotlib.pyplot as plt
+import matplotlib.cm as cm
 import io
 import base64
 
@@ -257,6 +259,35 @@ def analyze_image_with_gradcam(uploaded_file):
     except Exception as e:
         st.error(f"Error analyzing image: {str(e)}")
         return None, 0, 0, None
+
+def apply_heatmap_overlay(img_array, heatmap, alpha=0.4):
+    """Apply heatmap overlay to image using matplotlib colormap"""
+    try:
+        # Normalize heatmap to 0-1 range
+        if heatmap.max() > 0:
+            heatmap_norm = heatmap / heatmap.max()
+        else:
+            heatmap_norm = heatmap
+        
+        # Apply jet colormap
+        colormap = cm.get_cmap('jet')
+        heatmap_colored = colormap(heatmap_norm)
+        
+        # Convert to 0-255 range and remove alpha channel
+        heatmap_colored = (heatmap_colored[:, :, :3] * 255).astype(np.uint8)
+        
+        # Ensure img_array is uint8
+        if img_array.dtype != np.uint8:
+            img_array = (img_array * 255).astype(np.uint8)
+        
+        # Blend images
+        overlay = (1 - alpha) * img_array + alpha * heatmap_colored
+        overlay = np.clip(overlay, 0, 255).astype(np.uint8)
+        
+        return overlay
+    except Exception as e:
+        st.error(f"Error applying heatmap overlay: {str(e)}")
+        return img_array
 
 # Sidebar for navigation
 st.sidebar.title("Navigation")
