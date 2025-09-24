@@ -545,13 +545,6 @@ function toggleSidebar() {
 </script>
 """, unsafe_allow_html=True)
 
-# Add the toggle button
-st.markdown("""
-<a href="javascript:void(0)" class="sidebar-toggle-btn" onclick="toggleSidebar()">
-    ☰ Show Menu
-</a>
-""", unsafe_allow_html=True)
-
 # Title and description
 st.markdown('''
 <div class="gradient-header">
