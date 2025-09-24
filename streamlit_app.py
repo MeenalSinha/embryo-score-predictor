@@ -30,12 +30,73 @@ st.set_page_config(
 # Custom CSS for better styling
 st.markdown("""
 <style>
-    .main-header {
-        font-size: 2.5rem;
-        font-weight: bold;
-        color: #1f77b4;
+    .gradient-header {
+        background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 25%, #d946ef 50%, #f97316 75%, #fb923c 100%);
+        padding: 2.5rem 2rem;
+        border-radius: 20px;
         text-align: center;
-        margin-bottom: 2rem;
+        margin: 2rem 0;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+    
+    .gradient-header h1 {
+        color: white;
+        font-size: 2.8rem;
+        font-weight: 700;
+        margin: 0;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+    }
+    
+    .gradient-header .dna-icon {
+        font-size: 3rem;
+        animation: pulse 2s infinite;
+    }
+    
+    .gradient-header .subtitle {
+        color: rgba(255,255,255,0.9);
+        font-size: 1.3rem;
+        font-weight: 400;
+        margin-top: 0.5rem;
+        text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    }
+    
+    @keyframes pulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+    }
+    
+    .threshold-section {
+        background: linear-gradient(135deg, #f0f9ff 0%, #e0e7ff 50%, #fef3c7 100%);
+        padding: 2rem;
+        border-radius: 16px;
+        margin: 2rem 0;
+        border: 1px solid #e5e7eb;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    }
+    
+    .threshold-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: #374151;
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
+    .threshold-value {
+        text-align: center;
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: #1f2937;
+        margin-top: 1rem;
+        padding: 0.5rem;
+        background: rgba(255,255,255,0.7);
+        border-radius: 8px;
     }
     .sub-header {
         font-size: 1.5rem;
@@ -623,6 +684,33 @@ elif page == "Image Prediction":
     due to deployment constraints, but demonstrates the interface for image-based predictions.
     """)
     
+    # Threshold setting section
+    st.markdown('''
+    <div class="threshold-section">
+        <div class="threshold-title">
+            ⚙️ Set Prediction Threshold
+        </div>
+    </div>
+    ''', unsafe_allow_html=True)
+    
+    # Threshold slider
+    threshold = st.slider(
+        "Quality Score Threshold",
+        min_value=0.0,
+        max_value=1.0,
+        value=0.5,
+        step=0.05,
+        help="Set the minimum threshold for embryo quality classification"
+    )
+    
+    st.markdown(f'''
+    <div class="threshold-value">
+        Current Threshold = {threshold:.2f}
+    </div>
+    ''', unsafe_allow_html=True)
+    
+    st.markdown("<br>", unsafe_allow_html=True)
+    
     # Sidebar information
     with st.sidebar:
         st.header("📋 How to Use")
@@ -770,58 +858,6 @@ elif page == "Image Prediction":
         This simplified version demonstrates the interface. For production use with 
         deep learning models, additional computational resources would be required.
         """)
-    
-    # Threshold setting section
-    st.markdown('''
-    <div class="threshold-section">
-        <div class="threshold-title">
-            ⚙️ Set Prediction Threshold
-        </div>
-    </div>
-    ''', unsafe_allow_html=True)
-    
-    # Threshold slider
-    threshold = st.slider(
-        "Quality Score Threshold",
-        min_value=0.0,
-        max_value=1.0,
-        value=0.5,
-        step=0.05,
-        help="Set the minimum threshold for embryo quality classification"
-    )
-    
-    st.markdown(f'''
-    <div class="threshold-value">
-        Current Threshold = {threshold:.2f}
-    </div>
-    ''', unsafe_allow_html=True)
-    
-    st.markdown("<br>", unsafe_allow_html=True)
-    
-    # Threshold setting section
-    st.markdown('''
-    <div class="threshold-section">
-        <div class="threshold-title">
-            ⚙️ Set Prediction Threshold
-        </div>
-    </div>
-    ''', unsafe_allow_html=True)
-    
-    # Threshold slider
-    threshold = st.slider(
-        "Quality Score Threshold",
-        min_value=0.0,
-        max_value=1.0,
-        value=0.5,
-        step=0.05,
-        help="Set the minimum threshold for embryo quality classification"
-    )
-    
-    st.markdown(f'''
-    <div class="threshold-value">
-        Current Threshold = {threshold:.2f}
-    </div>
-    ''', unsafe_allow_html=True)
 
 elif page == "Model Info (Numerical)":
     st.markdown('<div class="sub-header">Random Forest Model Performance</div>', unsafe_allow_html=True)
