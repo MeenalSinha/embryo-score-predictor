@@ -1055,7 +1055,7 @@ elif page == "Image Prediction":
                     title=None,
             
             st.plotly_chart(score_fig, use_container_width=True)
-
+                title=None
                     paper_bgcolor="rgba(0,0,0,0)",
                     showlegend=False
             st.markdown(f'''
