@@ -100,6 +100,21 @@ st.markdown("""
         padding: 1rem !important;
         background: #f9fafb !important;
     }
+    
+    /* Remove writing cursor from selectbox */
+    .stSelectbox > div > div > div {
+        cursor: pointer !important;
+    }
+    
+    /* Remove writing cursor from selectbox input */
+    .stSelectbox input {
+        cursor: pointer !important;
+    }
+    
+    /* Remove writing cursor from selectbox dropdown */
+    .stSelectbox [data-baseweb="select"] {
+        cursor: pointer !important;
+    }
 </style>
 """, unsafe_allow_html=True)
 
