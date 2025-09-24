@@ -1034,9 +1034,9 @@ if page == "Numerical Prediction":
         # Display result
         st.markdown(f'''
         <div class="prediction-result">
-            <h2>Predicted Embryo Quality Score</h2>
-            <h1 style="color: #28a745; font-size: 3rem;">{prediction:.2f}/10</h1>
-            <p style="font-size: 1.2rem;">
+            <h2 style="text-align: center;">Predicted Embryo Quality Score</h2>
+            <h1 style="color: #28a745; font-size: 3rem; text-align: center;">{prediction:.2f}/10</h1>
+            <p style="font-size: 1.2rem; text-align: center;">
                 {'High Quality' if prediction >= 7 else 'Medium Quality' if prediction >= 5 else 'Low Quality'}
             </p>
         </div>
