@@ -1117,7 +1117,11 @@ elif page == "Image Prediction":
 
             if idx < len(uploaded_files[:3]) - 1:
                 st.markdown("---")
-
+                
+                # Center the comparison chart title and content
+                col1, col2, col3 = st.columns([1, 2, 1])
+                with col2:
+                    st.markdown("<h3 style='text-align: center; color: #2E86AB;'>📊 Embryo Quality Comparison</h3>", unsafe_allow_html=True)
         # Final summary
         if results:
             st.markdown("""
