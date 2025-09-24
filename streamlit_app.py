@@ -10,8 +10,6 @@ from sklearn.metrics import mean_squared_error, r2_score
 import joblib
 import os
 from PIL import Image
-import matplotlib.pyplot as plt
-import matplotlib.cm as cm
 import io
 import base64
 
@@ -261,7 +259,7 @@ def analyze_image_with_gradcam(uploaded_file):
         return None, 0, 0, None
 
 def apply_heatmap_overlay(img_array, heatmap, alpha=0.4):
-    """Apply heatmap overlay to image using matplotlib colormap"""
+    """Apply heatmap overlay to image using simple colormap"""
     try:
         # Normalize heatmap to 0-1 range
         if heatmap.max() > 0:
@@ -269,12 +267,29 @@ def apply_heatmap_overlay(img_array, heatmap, alpha=0.4):
         else:
             heatmap_norm = heatmap
         
-        # Apply jet colormap
-        colormap = cm.get_cmap('jet')
-        heatmap_colored = colormap(heatmap_norm)
+        # Create simple jet-like colormap without matplotlib
+        # Red for high values, blue for low values
+        heatmap_colored = np.zeros((*heatmap_norm.shape, 3))
         
-        # Convert to 0-255 range and remove alpha channel
-        heatmap_colored = (heatmap_colored[:, :, :3] * 255).astype(np.uint8)
+        # Simple jet colormap implementation
+        for i in range(heatmap_norm.shape[0]):
+            for j in range(heatmap_norm.shape[1]):
+                val = heatmap_norm[i, j]
+                if val < 0.25:
+                    # Blue to cyan
+                    heatmap_colored[i, j] = [0, val * 4, 1]
+                elif val < 0.5:
+                    # Cyan to green
+                    heatmap_colored[i, j] = [0, 1, 1 - (val - 0.25) * 4]
+                elif val < 0.75:
+                    # Green to yellow
+                    heatmap_colored[i, j] = [(val - 0.5) * 4, 1, 0]
+                else:
+                    # Yellow to red
+                    heatmap_colored[i, j] = [1, 1 - (val - 0.75) * 4, 0]
+        
+        # Convert to 0-255 range
+        heatmap_colored = (heatmap_colored * 255).astype(np.uint8)
         
         # Ensure img_array is uint8
         if img_array.dtype != np.uint8:
