@@ -81,7 +81,27 @@ st.markdown("""
     }
     
     .stApp {
-        margin-top: -50px;
+        margin-top: -80px;
+    }
+    
+    .block-container {
+        padding-top: 0rem;
+        padding-bottom: 2rem;
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+    
+    .main .block-container {
+        padding-top: 0rem !important;
+        margin-top: -20px !important;
+    }
+    
+    .stApp > header {
+        background-color: transparent;
+    }
+    
+    .stApp > div:first-child {
+        margin-top: -30px;
     }
     
     /* Hide any collapse controls */
