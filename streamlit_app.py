@@ -9,6 +9,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import mean_squared_error, r2_score
 import joblib
 import os
+import time
 from PIL import Image
 import io
 import base64
@@ -26,6 +27,79 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded"
 )
+
+# Add custom CSS for sidebar toggle button
+st.markdown("""
+<style>
+/* Custom sidebar toggle button */
+.sidebar-toggle {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: 999999;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 16px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+}
+
+.sidebar-toggle:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+}
+
+.sidebar-toggle:active {
+    transform: translateY(0px);
+}
+
+/* Ensure button stays visible */
+.sidebar-toggle {
+    display: block !important;
+    visibility: visible !important;
+}
+</style>
+""", unsafe_allow_html=True)
+
+# Initialize session state for sidebar
+if 'sidebar_state' not in st.session_state:
+    st.session_state.sidebar_state = 'expanded'
+
+# Add sidebar toggle button
+toggle_placeholder = st.empty()
+with toggle_placeholder.container():
+    if st.session_state.sidebar_state == 'collapsed':
+        if st.button("☰ Menu", key="expand_sidebar", help="Expand Sidebar"):
+            st.session_state.sidebar_state = 'expanded'
+            st.rerun()
+    else:
+        if st.button("✕ Hide", key="collapse_sidebar", help="Collapse Sidebar"):
+            st.session_state.sidebar_state = 'collapsed'
+            st.rerun()
+
+# Apply custom CSS based on sidebar state
+if st.session_state.sidebar_state == 'collapsed':
+    st.markdown("""
+    <style>
+    .css-1d391kg {display: none !important;}
+    .css-1lcbmhc {margin-left: 0rem !important;}
+    .css-1outpf7 {margin-left: 0rem !important;}
+    section[data-testid="stSidebar"] {display: none !important;}
+    .sidebar-toggle {left: 10px !important;}
+    </style>
+    """, unsafe_allow_html=True)
+else:
+    st.markdown("""
+    <style>
+    section[data-testid="stSidebar"] {display: block !important;}
+    .sidebar-toggle {left: 320px !important;}
+    </style>
+    """, unsafe_allow_html=True)
 
 # Custom CSS for better styling
 st.markdown("""
