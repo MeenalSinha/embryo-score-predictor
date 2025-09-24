@@ -209,10 +209,10 @@ def analyze_image_simple(uploaded_file):
         score = min(10, max(0, (brightness / 255 * 5) + (contrast / 100 * 3) + np.random.normal(2, 1)))
         confidence = min(1.0, max(0.3, score / 10 + np.random.normal(0, 0.1)))
         
-        return img, score, confidence
+        return img, score, confidence, heatmap
     except Exception as e:
         st.error(f"Error analyzing image: {str(e)}")
-        return None, 0, 0
+        return None, 0, 0, None
 
 # Sidebar for navigation
 st.sidebar.title("Navigation")
@@ -327,13 +327,14 @@ elif page == "Image Prediction":
             st.subheader(f"Embryo {idx+1}")
             
             # Analyze image
-            img, img_array, score, confidence, heatmap = analyze_image_with_gradcam(uploaded_file)
+            img, score, confidence, heatmap = analyze_image_with_gradcam(uploaded_file)
             
             if img is None:
                 st.error(f"Failed to process image {idx+1}")
                 continue
 
             # Create overlay if heatmap is available
+            img_array = np.array(img)
             overlay_img = img_array
             if heatmap is not None:
                 overlay_img = apply_heatmap_overlay(img_array, heatmap)
