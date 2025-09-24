@@ -687,9 +687,6 @@ elif page == "Image Prediction":
     # Threshold setting section
     st.markdown('''
     <div class="threshold-section">
-        <div class="threshold-title">
-            ⚙️ Set Prediction Threshold
-        </div>
     </div>
     ''', unsafe_allow_html=True)
     
