@@ -20,88 +20,19 @@ from reportlab.lib.units import inch
 from reportlab.lib import colors
 from datetime import datetime
 
-# Page configuration
+# Force sidebar to be visible by setting initial state
+if 'sidebar_state' not in st.session_state:
+    st.session_state.sidebar_state = 'expanded'
+
+# Set page config to ensure sidebar is always available
 st.set_page_config(
     page_title="IVF Embryo Score Predictor",
     page_icon="🧬",
     layout="wide",
-    initial_sidebar_state="expanded"
+    initial_sidebar_state=st.session_state.sidebar_state
 )
 
-# Add custom CSS for sidebar toggle button
-st.markdown("""
-<style>
-/* Custom sidebar toggle button */
-.sidebar-toggle {
-    position: fixed;
-    top: 10px;
-    left: 10px;
-    z-index: 999999;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    border: none;
-    border-radius: 8px;
-    padding: 8px 12px;
-    cursor: pointer;
-    font-size: 16px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-    transition: all 0.3s ease;
-}
-
-.sidebar-toggle:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-    background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
-}
-
-.sidebar-toggle:active {
-    transform: translateY(0px);
-}
-
-/* Ensure button stays visible */
-.sidebar-toggle {
-    display: block !important;
-    visibility: visible !important;
-}
-</style>
-""", unsafe_allow_html=True)
-
-# Initialize session state for sidebar
-if 'sidebar_state' not in st.session_state:
-    st.session_state.sidebar_state = 'expanded'
-
-# Add sidebar toggle button
-toggle_placeholder = st.empty()
-with toggle_placeholder.container():
-    if st.session_state.sidebar_state == 'collapsed':
-        if st.button("☰ Menu", key="expand_sidebar", help="Expand Sidebar"):
-            st.session_state.sidebar_state = 'expanded'
-            st.rerun()
-    else:
-        if st.button("✕ Hide", key="collapse_sidebar", help="Collapse Sidebar"):
-            st.session_state.sidebar_state = 'collapsed'
-            st.rerun()
-
-# Apply custom CSS based on sidebar state
-if st.session_state.sidebar_state == 'collapsed':
-    st.markdown("""
-    <style>
-    .css-1d391kg {display: none !important;}
-    .css-1lcbmhc {margin-left: 0rem !important;}
-    .css-1outpf7 {margin-left: 0rem !important;}
-    section[data-testid="stSidebar"] {display: none !important;}
-    .sidebar-toggle {left: 10px !important;}
-    </style>
-    """, unsafe_allow_html=True)
-else:
-    st.markdown("""
-    <style>
-    section[data-testid="stSidebar"] {display: block !important;}
-    .sidebar-toggle {left: 320px !important;}
-    </style>
-    """, unsafe_allow_html=True)
-
-# Custom CSS for better styling
+# Custom CSS for enhanced styling
 st.markdown("""
 <style>
     /* Import Google Fonts */
@@ -117,6 +48,47 @@ st.markdown("""
     footer {visibility: hidden;}
     header {visibility: hidden;}
     
+    /* Custom toggle button */
+    .sidebar-toggle-btn {
+        position: fixed;
+        top: 60px;
+        left: 15px;
+        z-index: 999999;
+        background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+        color: white;
+        border: 2px solid rgba(255,255,255,0.2);
+        padding: 10px 15px;
+        border-radius: 25px;
+        font-size: 16px;
+        font-weight: 600;
+        box-shadow: 0 6px 20px rgba(79, 70, 229, 0.4);
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        backdrop-filter: blur(10px);
+        text-decoration: none;
+        display: inline-block;
+    }
+    
+    .sidebar-toggle-btn:hover {
+        transform: translateY(-3px) scale(1.05);
+        box-shadow: 0 8px 25px rgba(79, 70, 229, 0.6);
+        background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+        border-color: rgba(255,255,255,0.3);
+    }
+    
+    .sidebar-toggle-btn:active {
+        transform: translateY(-1px) scale(1.02);
+    }
+    
+    /* Adjust button position when sidebar is collapsed */
+    .sidebar-collapsed .sidebar-toggle-btn {
+        left: 15px;
+    }
+    
+    .sidebar-expanded .sidebar-toggle-btn {
+        left: 315px;
+    }
+    
+    /* Enhanced main content styling */
     .gradient-header {
         background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 25%, #d946ef 50%, #f97316 75%, #fb923c 100%);
         padding: 2.5rem 2rem;
@@ -492,6 +464,36 @@ st.markdown("""
         }
     }
 </style>
+""", unsafe_allow_html=True)
+
+# JavaScript for sidebar toggle functionality
+st.markdown("""
+<script>
+function toggleSidebar() {
+    const sidebar = parent.document.querySelector('[data-testid="stSidebar"]');
+    const button = parent.document.querySelector('.sidebar-toggle-btn');
+    
+    if (sidebar) {
+        if (sidebar.style.marginLeft === '-21rem' || sidebar.style.display === 'none') {
+            // Show sidebar
+            sidebar.style.marginLeft = '0rem';
+            sidebar.style.display = 'block';
+            if (button) button.innerHTML = '✕ Hide Menu';
+        } else {
+            // Hide sidebar
+            sidebar.style.marginLeft = '-21rem';
+            if (button) button.innerHTML = '☰ Show Menu';
+        }
+    }
+}
+</script>
+""", unsafe_allow_html=True)
+
+# Add the toggle button
+st.markdown("""
+<a href="javascript:void(0)" class="sidebar-toggle-btn" onclick="toggleSidebar()">
+    ☰ Show Menu
+</a>
 """, unsafe_allow_html=True)
 
 # Title and description
