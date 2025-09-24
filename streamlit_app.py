@@ -1334,14 +1334,14 @@ elif page == "Image Prediction":
                         "application/pdf",
                         help="Download comprehensive analysis report"
                     )
-        st.markdown("""
+                except Exception as e:
                     st.error(f"Error generating PDF: {str(e)}")
     else:
         st.markdown('<div class="info-box">', unsafe_allow_html=True)
         st.markdown("""
         ### 🚀 Get Started with Image Analysis
         
-        1. **Upload Images**: Select embryo images using the uploader below
+        1. **📤 Upload Images**: Select embryo images using the uploader below
         2. **Set Threshold**: Adjust the quality threshold above
         3. **AI Analysis**: Get automated quality predictions
         4. **Morphological Scoring**: Input expansion, ICM, and TE grades
@@ -1349,10 +1349,4 @@ elif page == "Image Prediction":
         
         ### ✨ Features
         - **Grad-CAM Visualization**: See what the AI focuses on
-        - **Combined Scoring**: Merge AI predictions with morphological assessment
-        - **Export Options**: Download results as CSV or comprehensive PDF reports
-        - **Real-time Analysis**: Instant feedback on embryo quality
-        
-        Upload your first embryo image to begin the analysis!
-        """, unsafe_allow_html=True)
-        st.markdown('</div>', unsafe_allow_html=True)
+        - **Combine
