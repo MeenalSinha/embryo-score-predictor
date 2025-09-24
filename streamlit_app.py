@@ -1763,27 +1763,226 @@ elif page == "About":
     </div>
     """, unsafe_allow_html=True)
     
+    # Technical Details Section
     st.markdown("""
-    ### Technical Details
-    - **Numerical Model**: Random Forest Regressor with StandardScaler
-    - **Training Data**: 1000 synthetic samples based on clinical patterns
-    - **Performance**: R² score of ~0.85 for numerical predictions
-    - **Deployment**: Optimized for Streamlit Cloud with minimal dependencies
-    
-    ### For Healthcare Professionals
-    This application can serve as a decision support tool to:
-    - Standardize embryo assessment procedures
-    - Identify key factors affecting embryo quality
-    - Support patient counseling with objective data
-    - Demonstrate the potential of AI in reproductive medicine
-    
-    ### Future Enhancements
-    With additional computational resources, this application could include:
-    - Deep learning models for image analysis
-    - Grad-CAM visualization for AI interpretability
-    - Advanced morphological assessment
-    - Integration with clinical databases
-    """)
+    <div style="
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 2rem;
+        border-radius: 15px;
+        margin: 2rem 0;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    ">
+        <h2 style="color: white; margin-bottom: 1.5rem; font-size: 2rem;">
+            🔬 Technical Details
+        </h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem;">
+            <div style="
+                background: rgba(255,255,255,0.1);
+                padding: 1.5rem;
+                border-radius: 10px;
+                backdrop-filter: blur(10px);
+                border: 1px solid rgba(255,255,255,0.2);
+            ">
+                <h4 style="color: #FFD700; margin-bottom: 1rem;">🤖 Numerical Model</h4>
+                <p style="color: white; margin: 0;">Random Forest Regressor with StandardScaler</p>
+            </div>
+            <div style="
+                background: rgba(255,255,255,0.1);
+                padding: 1.5rem;
+                border-radius: 10px;
+                backdrop-filter: blur(10px);
+                border: 1px solid rgba(255,255,255,0.2);
+            ">
+                <h4 style="color: #FFD700; margin-bottom: 1rem;">📊 Training Data</h4>
+                <p style="color: white; margin: 0;">1000 synthetic samples based on clinical patterns</p>
+            </div>
+            <div style="
+                background: rgba(255,255,255,0.1);
+                padding: 1.5rem;
+                border-radius: 10px;
+                backdrop-filter: blur(10px);
+                border: 1px solid rgba(255,255,255,0.2);
+            ">
+                <h4 style="color: #FFD700; margin-bottom: 1rem;">⚡ Performance</h4>
+                <p style="color: white; margin: 0;">R-squared score of ~0.85 for numerical predictions</p>
+            </div>
+            <div style="
+                background: rgba(255,255,255,0.1);
+                padding: 1.5rem;
+                border-radius: 10px;
+                backdrop-filter: blur(10px);
+                border: 1px solid rgba(255,255,255,0.2);
+            ">
+                <h4 style="color: #FFD700; margin-bottom: 1rem;">☁️ Deployment</h4>
+                <p style="color: white; margin: 0;">Optimized for Streamlit Cloud with minimal dependencies</p>
+            </div>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+    # For Healthcare Professionals Section
+    st.markdown("""
+    <div style="
+        background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+        padding: 2rem;
+        border-radius: 15px;
+        margin: 2rem 0;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    ">
+        <h2 style="color: white; margin-bottom: 1.5rem; font-size: 2rem;">
+            👩‍⚕️ For Healthcare Professionals
+        </h2>
+        <p style="color: white; font-size: 1.1rem; margin-bottom: 2rem; opacity: 0.9;">
+            This application can serve as a decision support tool to:
+        </p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
+            <div style="
+                background: rgba(255,255,255,0.15);
+                padding: 1.5rem;
+                border-radius: 12px;
+                backdrop-filter: blur(10px);
+                border: 1px solid rgba(255,255,255,0.2);
+                transition: transform 0.3s ease;
+            ">
+                <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+                    <span style="font-size: 2rem; margin-right: 1rem;">📋</span>
+                    <h4 style="color: white; margin: 0;">Standardize Procedures</h4>
+                </div>
+                <p style="color: white; margin: 0; opacity: 0.9;">
+                    Standardize embryo assessment procedures across your clinic
+                </p>
+            </div>
+            <div style="
+                background: rgba(255,255,255,0.15);
+                padding: 1.5rem;
+                border-radius: 12px;
+                backdrop-filter: blur(10px);
+                border: 1px solid rgba(255,255,255,0.2);
+                transition: transform 0.3s ease;
+            ">
+                <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+                    <span style="font-size: 2rem; margin-right: 1rem;">🔍</span>
+                    <h4 style="color: white; margin: 0;">Identify Key Factors</h4>
+                </div>
+                <p style="color: white; margin: 0; opacity: 0.9;">
+                    Identify key factors affecting embryo quality and success rates
+                </p>
+            </div>
+            <div style="
+                background: rgba(255,255,255,0.15);
+                padding: 1.5rem;
+                border-radius: 12px;
+                backdrop-filter: blur(10px);
+                border: 1px solid rgba(255,255,255,0.2);
+                transition: transform 0.3s ease;
+            ">
+                <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+                    <span style="font-size: 2rem; margin-right: 1rem;">💬</span>
+                    <h4 style="color: white; margin: 0;">Patient Counseling</h4>
+                </div>
+                <p style="color: white; margin: 0; opacity: 0.9;">
+                    Support patient counseling with objective, data-driven insights
+                </p>
+            </div>
+            <div style="
+                background: rgba(255,255,255,0.15);
+                padding: 1.5rem;
+                border-radius: 12px;
+                backdrop-filter: blur(10px);
+                border: 1px solid rgba(255,255,255,0.2);
+                transition: transform 0.3s ease;
+            ">
+                <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+                    <span style="font-size: 2rem; margin-right: 1rem;">🤖</span>
+                    <h4 style="color: white; margin: 0;">AI in Medicine</h4>
+                </div>
+                <p style="color: white; margin: 0; opacity: 0.9;">
+                    Demonstrate the potential of AI in reproductive medicine
+                </p>
+            </div>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+    # Future Enhancements Section
+    st.markdown("""
+    <div style="
+        background: linear-gradient(135deg, #fc466b 0%, #3f5efb 100%);
+        padding: 2rem;
+        border-radius: 15px;
+        margin: 2rem 0;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    ">
+        <h2 style="color: white; margin-bottom: 1.5rem; font-size: 2rem;">
+            🚀 Future Enhancements
+        </h2>
+        <p style="color: white; font-size: 1.1rem; margin-bottom: 2rem; opacity: 0.9;">
+            With additional computational resources, this application could include:
+        </p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+            <div style="
+                background: rgba(255,255,255,0.1);
+                padding: 2rem;
+                border-radius: 15px;
+                backdrop-filter: blur(15px);
+                border: 1px solid rgba(255,255,255,0.2);
+                text-align: center;
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+            ">
+                <div style="font-size: 3rem; margin-bottom: 1rem;">🧠</div>
+                <h4 style="color: #FFD700; margin-bottom: 1rem;">Deep Learning Models</h4>
+                <p style="color: white; margin: 0; opacity: 0.9;">
+                    Advanced neural networks for comprehensive image analysis and pattern recognition
+                </p>
+            </div>
+            <div style="
+                background: rgba(255,255,255,0.1);
+                padding: 2rem;
+                border-radius: 15px;
+                backdrop-filter: blur(15px);
+                border: 1px solid rgba(255,255,255,0.2);
+                text-align: center;
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+            ">
+                <div style="font-size: 3rem; margin-bottom: 1rem;">👁️</div>
+                <h4 style="color: #FFD700; margin-bottom: 1rem;">Grad-CAM Visualization</h4>
+                <p style="color: white; margin: 0; opacity: 0.9;">
+                    Visual explanations of AI decision-making for enhanced interpretability
+                </p>
+            </div>
+            <div style="
+                background: rgba(255,255,255,0.1);
+                padding: 2rem;
+                border-radius: 15px;
+                backdrop-filter: blur(15px);
+                border: 1px solid rgba(255,255,255,0.2);
+                text-align: center;
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+            ">
+                <div style="font-size: 3rem; margin-bottom: 1rem;">🔬</div>
+                <h4 style="color: #FFD700; margin-bottom: 1rem;">Morphological Assessment</h4>
+                <p style="color: white; margin: 0; opacity: 0.9;">
+                    Advanced automated morphological analysis and quality scoring
+                </p>
+            </div>
+            <div style="
+                background: rgba(255,255,255,0.1);
+                padding: 2rem;
+                border-radius: 15px;
+                backdrop-filter: blur(15px);
+                border: 1px solid rgba(255,255,255,0.2);
+                text-align: center;
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+            ">
+                <div style="font-size: 3rem; margin-bottom: 1rem;">🏥</div>
+                <h4 style="color: #FFD700; margin-bottom: 1rem;">Clinical Integration</h4>
+                <p style="color: white; margin: 0; opacity: 0.9;">
+                    Seamless integration with existing clinical databases and workflows
+                </p>
+            </div>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
     
     st.markdown("---")
     st.markdown("**Developed with ❤️ for advancing reproductive medicine**")
