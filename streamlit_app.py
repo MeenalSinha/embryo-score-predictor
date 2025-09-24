@@ -1053,7 +1053,8 @@ elif page == "Image Prediction":
             ))
             
             score_fig.update_layout(
-                height=400,
+                height=300,
+                margin=dict(l=20, r=20, t=40, b=20),
                 paper_bgcolor="rgba(0,0,0,0)",
                 showlegend=False
             )
@@ -1117,7 +1118,7 @@ elif page == "Image Prediction":
 
             if idx < len(uploaded_files[:3]) - 1:
                 st.markdown("---")
-        
+                
         # Final summary
         if results:
             st.markdown("""
