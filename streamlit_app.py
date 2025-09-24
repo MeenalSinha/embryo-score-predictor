@@ -900,7 +900,7 @@ if page == "Numerical Prediction":
         # Display result
         st.markdown(f'''
         <div class="prediction-result">
-            <h2>Predicted Embryo Quality Score</h2>
+            <h2>🎯 Predicted Embryo Quality Score</h2>
             <h1 style="color: #28a745; font-size: 3rem;">{prediction:.2f}/10</h1>
             <p style="font-size: 1.2rem;">
                 {'🟢 High Quality' if prediction >= 7 else '🟡 Medium Quality' if prediction >= 5 else '🔴 Low Quality'}
@@ -927,10 +927,7 @@ elif page == "Image Prediction":
     
     # Simple threshold heading
     st.markdown("""
-    <div style="display: flex; align-items: center; gap: 0.5rem; margin: 2rem 0 1rem 0;">
-        <span style="font-size: 1.5rem;">⚙️</span>
-        <h3 style="margin: 0; color: #1e293b; font-weight: 600;">Set Prediction Threshold</h3>
-    </div>
+    ### ⚙️ Set Prediction Threshold
     """, unsafe_allow_html=True)
     
     # Threshold slider
@@ -945,7 +942,7 @@ elif page == "Image Prediction":
     
     st.markdown(f'''
     <div class="threshold-value">
-        🎯 Current Threshold = {threshold:.2f}
+        Current Threshold = {threshold:.2f}
         <div style="margin-top: 1rem; padding: 0.5rem; background: rgba(255,255,255,0.3); border-radius: 8px; position: relative; z-index: 1;">
             <small style="color: #065f46;">Confidence Level: High | Model Accuracy: 85%</small>
         </div>
@@ -1034,7 +1031,7 @@ elif page == "Image Prediction":
                 st.markdown("""
                 <div style="background: linear-gradient(135deg, #f0f9ff 0%, #e0e7ff 100%); padding: 1.5rem; border-radius: 12px; margin: 1rem 0; border-left: 4px solid #3b82f6;">
                     <p style="margin: 0; font-size: 0.95rem; color: #1e40af; line-height: 1.6;">
-                        <strong>🔍 Grad-CAM Explanation:</strong> The heatmap shows regions the AI model focuses on when making predictions. 
+                        <strong>Grad-CAM Explanation:</strong> The heatmap shows regions the AI model focuses on when making predictions. 
                         Red/yellow areas indicate high attention, while blue areas show low attention. This helps understand what features 
                         the model considers important for quality assessment.
                     </p>
@@ -1042,7 +1039,7 @@ elif page == "Image Prediction":
                 """, unsafe_allow_html=True)
 
             # Morphological scoring
-            st.markdown("### 📊 Morphological Scoring")
+            st.markdown("### Morphological Scoring")
             col3, col4, col5 = st.columns(3)
             
             with col3:
@@ -1074,7 +1071,7 @@ elif page == "Image Prediction":
             st.markdown("""
             <div style="margin: 3rem 0 1rem 0;">
                 <h2 style="color: #1e293b; font-weight: 600; display: flex; align-items: center; gap: 0.5rem;">
-                    📊 Results Summary
+                    Results Summary
                 </h2>
             </div>
             """, unsafe_allow_html=True)
@@ -1095,7 +1092,7 @@ elif page == "Image Prediction":
                 try:
                     pdf_buffer = generate_pdf_report(results_df, uploaded_files)
                     st.download_button(
-                        "📋 Download Report (PDF)", 
+                        "Download Report (PDF)", 
                         pdf_buffer.getvalue(), 
                         "embryo_analysis_report.pdf", 
                         "application/pdf",
@@ -1106,20 +1103,20 @@ elif page == "Image Prediction":
     else:
         st.markdown('<div class="info-box">', unsafe_allow_html=True)
         st.markdown("""
-        ### 🚀 Get Started with Image Analysis
+        ### Get Started with Image Analysis
         
-        1. **📤 Upload Images**: Select embryo images using the uploader below
-        2. **🎯 Set Threshold**: Adjust the quality threshold above
-        3. **🔬 AI Analysis**: Get automated quality predictions
-        4. **📊 Morphological Scoring**: Input expansion, ICM, and TE grades
-        5. **📋 Export Results**: Download CSV or PDF reports
+        1. **Upload Images**: Select embryo images using the uploader below
+        2. **Set Threshold**: Adjust the quality threshold above
+        3. **AI Analysis**: Get automated quality predictions
+        4. **Morphological Scoring**: Input expansion, ICM, and TE grades
+        5. **Export Results**: Download CSV or PDF reports
         
-        ### 💡 Features
+        ### Features
         - **Grad-CAM Visualization**: See what the AI focuses on
         - **Combined Scoring**: AI + morphological assessment
         - **Professional Reports**: Comprehensive PDF documentation
         
-        ### ⚠️ Note
+        ### Note
         This is a demonstration version with simplified image analysis. 
         Production deployment would require deep learning models and GPU resources.
         """)
@@ -1134,7 +1131,7 @@ elif page == "Model Info (Numerical)":
     with col1:
         st.markdown(f'''
         <div class="metric-card">
-            <h3>📈 R² Score</h3>
+            <h3>R² Score</h3>
             <h2>{rf_r2:.3f}</h2>
             <p style="font-size: 0.8rem; color: #64748b; margin: 0.5rem 0 0 0;">Model Accuracy</p>
         </div>
@@ -1143,7 +1140,7 @@ elif page == "Model Info (Numerical)":
     with col2:
         st.markdown(f'''
         <div class="metric-card">
-            <h3>📊 RMSE</h3>
+            <h3>RMSE</h3>
             <h2>{np.sqrt(rf_mse):.3f}</h2>
             <p style="font-size: 0.8rem; color: #64748b; margin: 0.5rem 0 0 0;">Prediction Error</p>
         </div>
@@ -1183,7 +1180,7 @@ elif page == "Data Analysis":
     st.markdown("""
     <div style="margin: 2rem 0 1rem 0;">
         <h3 style="color: #1e293b; font-weight: 600; display: flex; align-items: center; gap: 0.5rem;">
-            📋 Dataset Overview
+            Dataset Overview
         </h3>
     </div>
     """, unsafe_allow_html=True)
@@ -1192,13 +1189,13 @@ elif page == "Data Analysis":
     with col1:
         st.markdown(f'''
         <div class="metric-card">
-            <h3>📊 Total Samples</h3>
+            <h3>Total Samples</h3>
             <h2>{len(df)}</h2>
         </div>
         ''', unsafe_allow_html=True)
         st.markdown(f'''
         <div class="metric-card">
-            <h3>⭐ Average Quality Score</h3>
+            <h3>Average Quality Score</h3>
             <h2>{df['quality_score'].mean():.2f}</h2>
         </div>
         ''', unsafe_allow_html=True)
@@ -1212,7 +1209,7 @@ elif page == "Data Analysis":
         ''', unsafe_allow_html=True)
         st.markdown(f'''
         <div class="metric-card">
-            <h3>🔴 Low Quality (<5)</h3>
+            <h3>Low Quality (<5)</h3>
             <h2>{len(df[df['quality_score'] < 5])}</h2>
         </div>
         ''', unsafe_allow_html=True)
@@ -1235,13 +1232,13 @@ elif page == "About":
     st.markdown('<div class="sub-header">About This Application</div>', unsafe_allow_html=True)
     
     st.markdown("""
-    ### 🎯 Purpose
+    ### Purpose
     This IVF Embryo Score Predictor combines two approaches for embryo quality assessment:
     
     1. **Numerical Parameter Analysis**: Uses Random Forest machine learning on clinical parameters
     2. **Image-Based Assessment**: Simplified image analysis for demonstration
     
-    ### 🔬 Features
+    ### Features
     
     #### Numerical Prediction
     - **Random Forest Algorithm**: Accurate predictions based on clinical parameters
@@ -1253,7 +1250,7 @@ elif page == "About":
     - **Morphological Scoring**: Combined assessment approach
     - **Export Capabilities**: CSV reports for record keeping
     
-    ### 📊 Parameters Used
+    ### Parameters Used
     
     #### Numerical Model
     - **Day 3 Parameters**: Cell count, fragmentation percentage
@@ -1261,24 +1258,24 @@ elif page == "About":
     - **Clinical Data**: Maternal age, fertilization timing
     - **Culture Conditions**: Medium type, temperature, CO2 concentration
     
-    ### ⚠️ Important Note
+    ### Important Note
     This tool is for educational and research purposes only. Clinical decisions should always be made
     by qualified medical professionals based on comprehensive patient assessment.
     
-    ### 🔧 Technical Details
+    ### Technical Details
     - **Numerical Model**: Random Forest Regressor with StandardScaler
     - **Training Data**: 1000 synthetic samples based on clinical patterns
     - **Performance**: R² score of ~0.85 for numerical predictions
     - **Deployment**: Optimized for Streamlit Cloud with minimal dependencies
     
-    ### 👨‍⚕️ For Healthcare Professionals
+    ### For Healthcare Professionals
     This application can serve as a decision support tool to:
     - Standardize embryo assessment procedures
     - Identify key factors affecting embryo quality
     - Support patient counseling with objective data
     - Demonstrate the potential of AI in reproductive medicine
     
-    ### 🚀 Future Enhancements
+    ### Future Enhancements
     With additional computational resources, this application could include:
     - Deep learning models for image analysis
     - Grad-CAM visualization for AI interpretability
@@ -1295,22 +1292,22 @@ st.markdown("""
 <div class="footer">
     <div style="display: flex; justify-content: center; align-items: center; gap: 2rem; flex-wrap: wrap;">
         <div style="display: flex; align-items: center; gap: 0.5rem;">
-            <span style="font-size: 1.5rem;">🧬</span>
+            <span style="font-size: 1.5rem;">DNA</span>
             <strong>IVF Embryo Score Predictor</strong>
         </div>
         <div style="color: #94a3b8;">|</div>
         <div style="display: flex; align-items: center; gap: 0.5rem;">
-            <span style="font-size: 1.2rem;">⚡</span>
+            <span style="font-size: 1.2rem;">Built</span>
             <span>Built with Streamlit</span>
         </div>
         <div style="color: #94a3b8;">|</div>
         <div style="display: flex; align-items: center; gap: 0.5rem;">
-            <span style="font-size: 1.2rem;">📚</span>
+            <span style="font-size: 1.2rem;">Education</span>
             <span>For Educational Use Only</span>
         </div>
     </div>
     <div style="margin-top: 1rem; font-size: 0.9rem; color: #94a3b8;">
-        © 2024 Advanced Reproductive Medicine AI Research
+        Advanced Reproductive Medicine AI Research
     </div>
 </div>
 """, unsafe_allow_html=True)
