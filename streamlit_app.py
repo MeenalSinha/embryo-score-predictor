@@ -119,7 +119,13 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # Title and description
-st.markdown('<div class="main-header">🧬 IVF Embryo Score Predictor</div>', unsafe_allow_html=True)
+st.markdown('''
+<div class="gradient-header">
+    <h1><span class="dna-icon">🧬</span>Embryo Quality Assessment</h1>
+    <div class="subtitle">AI-Powered IVF Success Prediction</div>
+</div>
+''', unsafe_allow_html=True)
+
 st.markdown("""
 This comprehensive application uses machine learning to predict IVF embryo quality scores. 
 Choose between numerical parameter analysis or image-based assessment.
@@ -764,6 +770,33 @@ elif page == "Image Prediction":
         This simplified version demonstrates the interface. For production use with 
         deep learning models, additional computational resources would be required.
         """)
+    
+    # Threshold setting section
+    st.markdown('''
+    <div class="threshold-section">
+        <div class="threshold-title">
+            ⚙️ Set Prediction Threshold
+        </div>
+    </div>
+    ''', unsafe_allow_html=True)
+    
+    # Threshold slider
+    threshold = st.slider(
+        "Quality Score Threshold",
+        min_value=0.0,
+        max_value=1.0,
+        value=0.5,
+        step=0.05,
+        help="Set the minimum threshold for embryo quality classification"
+    )
+    
+    st.markdown(f'''
+    <div class="threshold-value">
+        Current Threshold = {threshold:.2f}
+    </div>
+    ''', unsafe_allow_html=True)
+    
+    st.markdown("<br>", unsafe_allow_html=True)
         st.markdown('</div>', unsafe_allow_html=True)
 
 elif page == "Model Info (Numerical)":
