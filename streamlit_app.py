@@ -1196,13 +1196,15 @@ elif page == "Image Prediction":
             st.plotly_chart(score_fig, use_container_width=True)
             
             st.markdown(f'''
-            <div class="image-prediction-box">
+                    box-shadow: 0 8px 25px rgba(40, 167, 69, 0.15);
+                    text-align: center;
                 <h3>AI Analysis Results</h3>
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1rem 0;">
                     <div style="background: rgba(255,255,255,0.3); padding: 0.75rem; border-radius: 8px;">
                         <strong>Quality Score</strong><br/>
                         <span style="font-size: 1.2rem; color: #065f46;">{score:.2f}/10</span>
                     </div>
+                        text-align: center;
                     <div style="background: rgba(255,255,255,0.3); padding: 0.75rem; border-radius: 8px;">
                         <strong>Confidence</strong><br/>
                         <span style="font-size: 1.2rem; color: #065f46;">{confidence:.1%}</span>
@@ -1211,6 +1213,7 @@ elif page == "Image Prediction":
                 <p style="font-size: 1.1rem; margin: 1rem 0;"><strong>Classification:</strong> {'High Quality' if score >= 7 else 'Medium Quality' if score >= 5 else 'Low Quality'}</p>
                 <p style="font-size: 0.9rem; color: #047857;"><strong>Grad-CAM:</strong> {'Generated' if heatmap is not None else 'Unavailable'}</p>
             </div>
+                        text-align: center;
             ''', unsafe_allow_html=True)
 
             # Add explanation for Grad-CAM
@@ -1219,6 +1222,7 @@ elif page == "Image Prediction":
                 <div style="background: linear-gradient(135deg, #f0f9ff 0%, #e0e7ff 100%); padding: 1.5rem; border-radius: 12px; margin: 1rem 0; border-left: 4px solid #3b82f6;">
                     <p style="margin: 0; font-size: 0.95rem; color: #1e40af; line-height: 1.6;">
                         <strong>Grad-CAM Explanation:</strong> The heatmap shows regions the AI model focuses on when making predictions. 
+                        text-align: center;
                         Red/yellow areas indicate high attention, while blue areas show low attention. This helps understand what features 
                         the model considers important for quality assessment.
                     </p>
