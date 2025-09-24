@@ -1341,7 +1341,7 @@ elif page == "Image Prediction":
         st.markdown("""
         ### 🚀 Get Started with Image Analysis
         
-        1. **(U+1F4E4) Upload Images**: Select embryo images using the uploader below
+        1. **Upload Images**: Select embryo images using the uploader below
         2. **Set Threshold**: Adjust the quality threshold above
         3. **AI Analysis**: Get automated quality predictions
         4. **Morphological Scoring**: Input expansion, ICM, and TE grades
