@@ -912,9 +912,31 @@ if page == "Numerical Prediction":
         importance = rf_model.feature_importances_
         feature_names = rf_features
         
-        fig = px.bar(x=importance, y=feature_names, orientation='h',
-                    title="Feature Importance in Prediction")
-        fig.update_layout(yaxis={'categoryorder': 'total ascending'})
+        # Create a more colorful and presentable feature importance chart
+        fig = px.bar(
+            x=importance, 
+            y=feature_names, 
+            orientation='h',
+            title="🎯 Feature Importance in Prediction",
+            color=importance,
+            color_continuous_scale='Viridis',
+            labels={'x': 'Importance Score', 'y': 'Features', 'color': 'Importance'}
+        )
+        fig.update_layout(
+            yaxis_categoryorder='total ascending',
+            template='plotly_white',
+            title_font_size=18,
+            title_x=0.5,
+            height=500,
+            showlegend=False,
+            margin=dict(l=150, r=50, t=80, b=50)
+        )
+        fig.update_traces(
+            texttemplate='%{x:.3f}',
+            textposition='outside',
+            marker_line_color='white',
+            marker_line_width=1
+        )
         st.plotly_chart(fig, use_container_width=True)
 
 elif page == "Image Prediction":
@@ -1007,6 +1029,38 @@ elif page == "Image Prediction":
                     st.image(img, caption="Original (Heatmap unavailable)", width=350)
                 st.markdown("</div>", unsafe_allow_html=True)
 
+            # Add quality score visualization
+            score_fig = go.Figure(go.Indicator(
+                mode = "gauge+number+delta",
+                value = score,
+                domain = {'x': [0, 1], 'y': [0, 1]},
+                title = {'text': f"Quality Score - Embryo {idx+1}"},
+                delta = {'reference': 5.0},
+                gauge = {
+                    'axis': {'range': [None, 10]},
+                    'bar': {'color': "#1f77b4"},
+                    'steps': [
+                        {'range': [0, 4], 'color': "#ffcccc"},
+                        {'range': [4, 7], 'color': "#ffffcc"},
+                        {'range': [7, 10], 'color': "#ccffcc"}
+                    ],
+                    'threshold': {
+                        'line': {'color': "red", 'width': 4},
+                        'thickness': 0.75,
+                        'value': threshold * 10
+                    }
+                }
+            ))
+            
+            score_fig.update_layout(
+                height=300,
+                template='plotly_white',
+                title_x=0.5,
+                margin=dict(l=20, r=20, t=60, b=20)
+            )
+            
+            st.plotly_chart(score_fig, use_container_width=True)
+
             # Display prediction result
             st.markdown(f'''
             <div class="image-prediction-box">
@@ -1077,6 +1131,35 @@ elif page == "Image Prediction":
             """, unsafe_allow_html=True)
             results_df = pd.DataFrame(results)
             st.dataframe(results_df, use_container_width=True)
+            
+            # Add summary visualization
+            summary_fig = px.bar(
+                results_df,
+                x='Embryo',
+                y=['Image Score', 'Combined Score'],
+                title="📊 Embryo Quality Comparison",
+                barmode='group',
+                color_discrete_sequence=['#FF6B6B', '#4ECDC4']
+            )
+            
+            summary_fig.update_layout(
+                template='plotly_white',
+                title_font_size=18,
+                title_x=0.5,
+                height=400,
+                xaxis_title="Embryos",
+                yaxis_title="Quality Scores",
+                legend_title="Score Type"
+            )
+            
+            summary_fig.add_hline(
+                y=7, 
+                line_dash="dash", 
+                line_color="green",
+                annotation_text="High Quality Threshold"
+            )
+            
+            st.plotly_chart(summary_fig, use_container_width=True)
 
             # Export options
             col1, col2 = st.columns(2)
@@ -1156,19 +1239,83 @@ elif page == "Model Info (Numerical)":
         ''', unsafe_allow_html=True)
     
     # Prediction vs Actual plot
-    fig = px.scatter(x=rf_y_test, y=rf_y_pred, 
-                    title="Predicted vs Actual Embryo Quality Scores",
-                    labels={'x': 'Actual Score', 'y': 'Predicted Score'})
-    fig.add_trace(go.Scatter(x=[rf_y_test.min(), rf_y_test.max()], 
-                           y=[rf_y_test.min(), rf_y_test.max()],
-                           mode='lines', name='Perfect Prediction', 
-                           line=dict(dash='dash', color='red')))
+    # Create a more colorful scatter plot
+    fig = px.scatter(
+        x=rf_y_test, 
+        y=rf_y_pred,
+        title="🎯 Predicted vs Actual Embryo Quality Scores",
+        labels={'x': 'Actual Score', 'y': 'Predicted Score'},
+        color=rf_y_test,
+        color_continuous_scale='Plasma',
+        size_max=10,
+        opacity=0.7
+    )
+    
+    # Add perfect prediction line
+    fig.add_trace(go.Scatter(
+        x=[rf_y_test.min(), rf_y_test.max()], 
+        y=[rf_y_test.min(), rf_y_test.max()],
+        mode='lines', 
+        name='Perfect Prediction', 
+        line=dict(dash='dash', color='#FF6B6B', width=3),
+        showlegend=True
+    ))
+    
+    fig.update_layout(
+        template='plotly_white',
+        title_font_size=18,
+        title_x=0.5,
+        height=500,
+        xaxis_title_font_size=14,
+        yaxis_title_font_size=14,
+        legend=dict(
+            yanchor="top",
+            y=0.99,
+            xanchor="left",
+            x=0.01,
+            bgcolor="rgba(255,255,255,0.8)"
+        )
+    )
+    
+    fig.update_traces(
+        marker=dict(size=8, line=dict(width=1, color='white')),
+        selector=dict(mode='markers')
+    )
     st.plotly_chart(fig, use_container_width=True)
     
     # Feature importance
     importance = rf_model.feature_importances_
-    fig_imp = px.pie(values=importance, names=rf_features,
-                    title="Feature Importance Distribution")
+    
+    # Create a more colorful and informative pie chart
+    fig_imp = px.pie(
+        values=importance, 
+        names=rf_features,
+        title="🥧 Feature Importance Distribution",
+        color_discrete_sequence=px.colors.qualitative.Set3,
+        hole=0.4
+    )
+    
+    fig_imp.update_traces(
+        textposition='inside', 
+        textinfo='percent+label',
+        textfont_size=12,
+        marker=dict(line=dict(color='white', width=2))
+    )
+    
+    fig_imp.update_layout(
+        template='plotly_white',
+        title_font_size=18,
+        title_x=0.5,
+        height=500,
+        showlegend=True,
+        legend=dict(
+            orientation="v",
+            yanchor="middle",
+            y=0.5,
+            xanchor="left",
+            x=1.05
+        )
+    )
     st.plotly_chart(fig_imp, use_container_width=True)
 
 elif page == "Data Analysis":
@@ -1215,8 +1362,33 @@ elif page == "Data Analysis":
         ''', unsafe_allow_html=True)
     
     # Distribution plots
-    fig_dist = px.histogram(df, x='quality_score', nbins=30,
-                           title="Distribution of Embryo Quality Scores")
+    # Create a more colorful histogram
+    fig_dist = px.histogram(
+        df, 
+        x='quality_score', 
+        nbins=30,
+        title="📊 Distribution of Embryo Quality Scores",
+        color_discrete_sequence=['#4ECDC4'],
+        marginal="box"
+    )
+    
+    fig_dist.update_traces(
+        marker_line_color='white',
+        marker_line_width=1,
+        opacity=0.8
+    )
+    
+    fig_dist.update_layout(
+        template='plotly_white',
+        title_font_size=18,
+        title_x=0.5,
+        height=500,
+        xaxis_title="Quality Score",
+        yaxis_title="Frequency",
+        xaxis_title_font_size=14,
+        yaxis_title_font_size=14,
+        bargap=0.1
+    )
     st.plotly_chart(fig_dist, use_container_width=True)
     
     # Correlation heatmap
@@ -1224,8 +1396,32 @@ elif page == "Data Analysis":
                    'maternal_age', 'quality_score']
     corr_matrix = df[numeric_cols].corr()
     
-    fig_corr = px.imshow(corr_matrix, text_auto=True, aspect="auto",
-                        title="Correlation Matrix of Embryo Parameters")
+    # Create a more colorful correlation heatmap
+    fig_corr = px.imshow(
+        corr_matrix, 
+        text_auto='.2f', 
+        aspect="auto",
+        title="🔥 Correlation Matrix of Embryo Parameters",
+        color_continuous_scale='RdBu_r',
+        zmin=-1,
+        zmax=1
+    )
+    
+    fig_corr.update_layout(
+        template='plotly_white',
+        title_font_size=18,
+        title_x=0.5,
+        height=500,
+        xaxis_title="Parameters",
+        yaxis_title="Parameters",
+        xaxis_title_font_size=14,
+        yaxis_title_font_size=14
+    )
+    
+    fig_corr.update_traces(
+        textfont_size=12,
+        textfont_color='white'
+    )
     st.plotly_chart(fig_corr, use_container_width=True)
 
 elif page == "About":
