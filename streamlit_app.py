@@ -20,17 +20,53 @@ from reportlab.lib.units import inch
 from reportlab.lib import colors
 from datetime import datetime
 
-# Force sidebar to be visible by setting initial state
-if 'sidebar_state' not in st.session_state:
-    st.session_state.sidebar_state = 'expanded'
-
-# Set page config to ensure sidebar is always available
+# Configure page to force sidebar always expanded
 st.set_page_config(
     page_title="IVF Embryo Score Predictor",
     page_icon="🧬",
     layout="wide",
-    initial_sidebar_state=st.session_state.sidebar_state
+    initial_sidebar_state="expanded"
 )
+
+# Force sidebar to always be visible with CSS
+st.markdown("""
+<style>
+    /* Force sidebar to always be visible */
+    .css-1d391kg, .css-1lcbmhc, .css-1outpf7, .css-1y4p8pa, 
+    .css-17eq0hr, .css-1544g2n, .css-1lcbmhc, .css-1outpf7,
+    section[data-testid="stSidebar"] {
+        min-width: 300px !important;
+        width: 300px !important;
+        margin-left: 0px !important;
+        transform: translateX(0px) !important;
+        visibility: visible !important;
+        display: block !important;
+    }
+    
+    /* Hide the sidebar collapse button */
+    button[kind="header"] {
+        display: none !important;
+    }
+    
+    /* Ensure main content adjusts properly */
+    .main .block-container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+        max-width: none;
+    }
+    
+    /* Hide any collapse controls */
+    .css-1lcbmhc .css-1outpf7 button,
+    .css-1y4p8pa button[aria-label*="collapse"],
+    .css-1y4p8pa button[aria-label*="Close"] {
+        display: none !important;
+    }
+</style>
+""", unsafe_allow_html=True)
+
+# Initialize session state
+if 'sidebar_expanded' not in st.session_state:
+    st.session_state.sidebar_expanded = True
 
 # Custom CSS for enhanced styling
 st.markdown("""
