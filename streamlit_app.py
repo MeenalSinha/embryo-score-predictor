@@ -70,9 +70,18 @@ st.markdown("""
     
     /* Ensure main content adjusts properly */
     .main .block-container {
-        padding-left: 1rem;
+        padding-top: 0.5rem;
         padding-right: 1rem;
         max-width: none;
+    }
+    
+    /* Reduce top margin for the app */
+    .stApp > header {
+        background-color: transparent;
+    }
+    
+    .stApp {
+        margin-top: -50px;
     }
     
     /* Hide any collapse controls */
@@ -1414,6 +1423,7 @@ elif page == "Model Info (Numerical)":
     fig_imp = px.pie(
         values=importance, 
         names=rf_features,
+        title="🥧 Feature Importance Distribution",
         color_discrete_sequence=px.colors.qualitative.Set3,
         hole=0.4
     )
