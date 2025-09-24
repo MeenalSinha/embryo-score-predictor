@@ -28,6 +28,26 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
+# Custom CSS for heading alignment
+st.markdown("""
+<style>
+/* Align all headings to the left */
+h1, h2, h3, h4, h5, h6 {
+    text-align: left !important;
+}
+
+/* Specifically target plotly chart titles */
+.js-plotly-plot .plotly .gtitle {
+    text-align: left !important;
+}
+
+/* Target streamlit markdown headings */
+.stMarkdown h1, .stMarkdown h2, .stMarkdown h3, .stMarkdown h4, .stMarkdown h5, .stMarkdown h6 {
+    text-align: left !important;
+}
+</style>
+""", unsafe_allow_html=True)
+
 # Force sidebar to always be visible with CSS
 st.markdown("""
 <style>
