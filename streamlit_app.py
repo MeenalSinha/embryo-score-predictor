@@ -1204,12 +1204,14 @@ elif page == "Image Prediction":
                 <h3>AI Analysis Results</h3>
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1rem 0;">
                     <div style="background: rgba(255,255,255,0.3); padding: 0.75rem; border-radius: 8px;">
+                        text-align: center;
                         <strong>Quality Score</strong><br/>
                         <span style="font-size: 1.2rem; color: #065f46;">{score:.2f}/10</span>
                     </div>
                         text-align: center;
                     <div style="background: rgba(255,255,255,0.3); padding: 0.75rem; border-radius: 8px;">
                         <strong>Confidence</strong><br/>
+                            text-align: center;
                         <span style="font-size: 1.2rem; color: #065f46;">{confidence:.1%}</span>
                     </div>
                 </div>
@@ -1218,6 +1220,7 @@ elif page == "Image Prediction":
             </div>
                         text-align: center;
             ''', unsafe_allow_html=True)
+                            text-align: center;
 
             # Add explanation for Grad-CAM
             if heatmap is not None:
@@ -1226,6 +1229,7 @@ elif page == "Image Prediction":
                     <p style="margin: 0; font-size: 0.95rem; color: #1e40af; line-height: 1.6;">
                         <strong>Grad-CAM Explanation:</strong> The heatmap shows regions the AI model focuses on when making predictions. 
                         text-align: center;
+                            text-align: center;
                         Red/yellow areas indicate high attention, while blue areas show low attention. This helps understand what features 
                         the model considers important for quality assessment.
                     </p>
